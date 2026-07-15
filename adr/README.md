@@ -19,6 +19,8 @@ format. Governed by pull request (see [0005](0005-adr-process.md)).
 | [0009](0009-wire-format-versioning.md) | Wire-format version discriminator | accepted |
 | [0010](0010-conformance-model.md) | Two-layer conformance: static vectors and a live interop matrix | accepted |
 | [0011](0011-web-and-content-repos.md) | Web presentation and content repositories | accepted |
+| [0012](0012-vector-immutability.md) | Conformance vectors are immutable and append-only | proposed |
+| [0013](0013-library-lifecycle-interop-gate.md) | Non-patch library releases are gated on interop against the stable frontier | proposed |
 
 New ADR: copy [0000-template.md](0000-template.md) to the next number, open a PR
 with `status: proposed`, flip to `accepted` before merge.
