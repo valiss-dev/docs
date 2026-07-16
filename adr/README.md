@@ -21,6 +21,7 @@ format. Governed by pull request (see [0005](0005-adr-process.md)).
 | [0011](0011-web-and-content-repos.md) | Web presentation and content repositories | accepted |
 | [0012](0012-vector-immutability.md) | Conformance vectors are immutable and append-only | proposed |
 | [0013](0013-library-lifecycle-interop-gate.md) | Non-patch library releases are gated on interop against the stable frontier | proposed |
+| [0014](0014-trust-tree-cli.md) | Trust-tree management ships as a first-class CLI, grown from the minter | proposed |
 
 New ADR: copy [0000-template.md](0000-template.md) to the next number, open a PR
 with `status: proposed`, flip to `accepted` before merge.
