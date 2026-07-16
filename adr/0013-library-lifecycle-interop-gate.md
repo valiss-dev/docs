@@ -47,10 +47,17 @@ always-on conformance.
   carries a manifest pinning **exactly one stable version per language** — the
   frontier. The standing matrix runs `frontier × frontier`. The manifest is
   PR-governed ([0005](0005-adr-process.md)).
-- **Non-patch releases are cut as a beta first.** A minor or major release is
-  published as a pre-release — per each ecosystem's own convention (a
-  `-beta`/`-rc` semver tag, a PyPI pre-release, and so on) — **before** it is
-  tagged stable. Patch releases are exempt.
+- **Pre-1.0, cutting a candidate is a judgment call.** Until an implementation
+  reaches 1.0 maturity, publishing a pre-release first — per each ecosystem's
+  own convention (a `-beta`/`-rc` semver tag, a PyPI pre-release, and so on) —
+  is at the developer's or agent's discretion. Changes touching the wire
+  format, verification behavior, or the request/message algorithms warrant a
+  candidate; purely additive changes (a new contrib adapter, a framework
+  subpackage, client transport helpers) may be tagged stable directly — the
+  always-on layers below still gate them, and a red matrix after an additive
+  release costs only a patch. From **1.0 on**, minor and major releases cut a
+  candidate first, unconditionally. Patch releases are always exempt. Whenever
+  a candidate *is* cut, the rest of this gate applies to it as written.
 - **The beta is validated against the frontier.** The candidate runs against
   every *stable* peer in the manifest, as **both server and client**, across
   **both transports** (HTTP and gRPC) — the `O(N)` slice of the matrix that
