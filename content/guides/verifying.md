@@ -59,6 +59,13 @@ Fail-closed decoding applies only to names a verifier explicitly opts to check;
 under those, a present entry that does not match the expected shape rejects the
 token.
 
+> [!IMPORTANT]
+> A verifier must carry an extension name it does not recognize through untouched
+> rather than reject it. SPEC-1 keeps the extension registry open, and a port that
+> drops or refuses unknown names breaks forward compatibility with tokens issued
+> against a newer vocabulary. Fail-closed shape checking applies only to the names
+> a verifier explicitly opts to enforce.
+
 ## Signature
 
 Standard Ed25519 (RFC 8032) over the signing input `base64url(header) "."
@@ -118,6 +125,12 @@ This establishes authenticity only. Trust and freshness are chain-level checks
 below. Validity windows: a token is expired when `now > exp + skew`, not yet
 valid when `now + skew < nbf`; absent fields impose nothing. valiss uses a
 default skew of 2 minutes.
+
+> [!NOTE]
+> Freshness rests entirely on the verifier's own clock. There is no issuer to
+> consult, so the skew window is measured against local time, and a verifier with
+> a wrong clock silently accepts expired tokens or rejects valid ones. Keep the
+> verifier's clock disciplined: it is in the trusted computing base.
 
 ## Verifying a message token (full chain)
 

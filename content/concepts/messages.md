@@ -56,6 +56,13 @@ along several axes at once:
   the signing key, so a receiver can walk operator to account to user to message
   from the operator key alone.
 
+> [!CAUTION]
+> The audience closes cross-destination replay, but nothing closes same-destination
+> replay within the validity window. A message token carries no nonce and the
+> verifier keeps no seen-token cache, so the same proof re-presented to the same
+> destination verifies again until it expires. A receiver that must act on each
+> message once has to deduplicate itself, keyed on the payload or the token id.
+
 The emitter chooses those bindings at issue time; the receiver decides which of
 them to insist on at verification time. The [Go guide](../guides/go.md#message-tokens)
 covers the `IssueMessage` and `VerifyMessage` calls; [Verifying tokens](../guides/verifying.md#verifying-a-message-token-full-chain)
