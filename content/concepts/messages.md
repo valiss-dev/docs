@@ -82,7 +82,7 @@ handler that serves several domains can tell them apart.
 
 Offline receivers hold no allowlist, so a verified message token is not subject
 to per-tenant revocation on its own. A receiver that wants revocation checks the
-chain account token's id against its own allowlist (see [The allowlist](allowlist.md)),
+chain account token's id against its own allowlist (see [Allowlist](allowlist.md)),
 just as a request verifier does.
 
 ## Message-token transports

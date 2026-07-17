@@ -53,7 +53,7 @@ Two consequences matter in practice:
   contents produces the same `jti`, which is what lets keyrings and allowlists
   deduplicate by id, and what lets account token ids serve as globally unique
   allowlist keys that cannot collide between operators (see
-  [The allowlist](allowlist.md)).
+  [Allowlist](allowlist.md)).
 
 Reproducing a `jti` byte-for-byte across languages requires reproducing the
 exact JSON serialization the reference implementation uses (field order, no

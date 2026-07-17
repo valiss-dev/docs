@@ -140,7 +140,7 @@ server's allowlist. An unlisted token is rejected even with a flawless signature
 and a far-future expiry. The list is an explicit set of ids you deposited, not a
 denylist of revoked ones, so nothing is trusted by default. The development-only
 `AllowAll` accepts every id and turns revocation off entirely; it is not for
-production. See [The allowlist](/docs/concepts/allowlist/).
+production. See [Allowlist](/docs/concepts/allowlist/).
 
 **Transport extensions.** The HTTP and gRPC integrations authorize through signed
 [extensions](/docs/concepts/extensions/), and they fail closed. Every token in
@@ -203,7 +203,7 @@ with that two-minute grace in mind.
 
 ## Where to go next
 
-- [The allowlist](/docs/concepts/allowlist/): revocation semantics in depth.
+- [Allowlist](/docs/concepts/allowlist/): revocation semantics in depth.
 - [Rotation](/docs/concepts/rotation/): epochs and the keyring for domain-wide
   rotation and grace periods.
 - [Extensions](/docs/concepts/extensions/): the authorization mechanism the
