@@ -42,6 +42,27 @@ set atomically (for example after reloading a file) with `Set`.
 allowlist.Set(currentAccountIDs) // reload after an issuer change
 ```
 
+## The list is an interface
+
+`StaticAllowlist` is a bundled implementation, not the model. The verifier
+accepts anything satisfying the `Allowlist` interface, which is a single
+method:
+
+```go
+type Allowlist interface {
+	Allowed(jti string) bool
+}
+```
+
+That one method is the whole contract, so where the ids come from is entirely
+the implementation's business. A list loaded from a file and swapped with
+`Set` is the simplest shape; the same interface can front a database query, a
+cache refreshed from an internal service, or a fully dynamic policy decided
+per call. The verifier consults it on every request, so whatever the
+implementation returns is enforced immediately, with the same fail-closed
+semantics: answer `false` and the token is rejected, no matter how valid its
+signature.
+
 ## Revoking an account kills its users
 
 The allowlist keys on account tokens, not user tokens, and that is deliberate.
