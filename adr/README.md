@@ -29,7 +29,7 @@ format. Governed by pull request (see [0005](0005-adr-process.md)).
 | [0019](0019-command-framework.md) | Command framework: the spf13 suite for CLI tools, stdlib flags for servers | accepted |
 | [0020](0020-credential-storage.md) | Credential storage: pluggable backends, one encrypted SQLite file per operator | accepted |
 | [0021](0021-cli-command-surface.md) | The valiss CLI command surface | accepted |
-| [0022](0022-entity-version-floor.md) | Entity version floor: wire-level reflection of store versioning | accepted |
+| [0022](0022-entity-generation-floor.md) | Entity generation floor: wire-level reflection of store generations | accepted |
 
 New ADR: copy [0000-template.md](0000-template.md) to the next number, open a PR
 with `status: proposed`, flip to `accepted` before merge.

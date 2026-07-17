@@ -1,4 +1,4 @@
-# 0022. Entity version floor: wire-level reflection of store versioning
+# 0022. Entity generation floor: wire-level reflection of store generations
 
 - Status: accepted
 - Date: 2026-07-17
@@ -6,31 +6,31 @@
 
 ## Context
 
-[0021](0021-cli-command-surface.md) makes versioning universal in the CLI's
-store: every entity carries a version counter, the store is append-only, and
-a version bumps on an invalidating change (key rotation, removal, an
-extension-policy change). That versioning is store-local. Nothing about it
-reaches the wire, so a verifier cannot act on it.
+[0021](0021-cli-command-surface.md) makes generations universal in the CLI's
+store: every entity carries a generation counter, the store is append-only,
+and a generation bumps on an invalidating change (key rotation, removal, an
+extension-policy change). That generation counter is store-local. Nothing
+about it reaches the wire, so a verifier cannot act on it.
 
 Today revocation is per-jti: a server fails closed against an allowlist whose
 entries are jti content hashes, and a jti leaving the allowlist is the
 revocation. Rotating a key or invalidating a generation of tokens therefore
 means enumerating and removing every affected jti. When an account rotates,
 every live user token underneath it must be found and struck one by one, even
-though "everything below version N is stale" is a single fact.
+though "everything below generation N is stale" is a single fact.
 
 The reference library is valiss-go (v0.13.1); this decision is scoped to what
-the wire and the verifier must do to carry an entity's version, and its
+the wire and the verifier must do to carry an entity's generation, and its
 implementation is deferred to valiss-go 0.14.
 
 ## Decision
 
 **A new valiss domain extension stamps a token with the issuing entity's own
-version.** It is a self-naming typed claim carried through the standard
+generation.** It is a self-naming typed claim carried through the standard
 `WithExtension` plumbing, like http grants, grpc grants, and custom domains.
-It carries the issuing entity's own version only. There is deliberately no
-chain vector: a token reflects the version of the entity that signed it, not
-the versions of its ancestors.
+It carries the issuing entity's own generation only. There is deliberately no
+chain vector: a token reflects the generation of the entity that signed it,
+not the generations of its ancestors.
 
 **Backwards compatibility is a hard requirement; the extension is optional at
 both ends.** An issuer may stamp or not. A verifier may enforce or not. An
@@ -39,11 +39,11 @@ for floors ignores the stamp entirely. Adding the extension changes no
 existing verification outcome.
 
 **Enforcement composes with the existing allowlist.** The allowlist keeps its
-per-jti entries as today, and gains optional per-entity version floors (for
+per-jti entries as today, and gains optional per-entity generation floors (for
 example, "account X floor is 8"). A verifier configured to enforce rejects a
-stamped token whose version is below its entity's floor. Rotation and removal
-become a floor bump: one entry, rather than an enumeration of every jti below
-the line.
+stamped token whose generation is below its entity's floor. Rotation and
+removal become a floor bump: one entry, rather than an enumeration of every
+jti below the line.
 
 **A template reference may travel as a concealed digest.** The extension may
 carry a template reference as a short digest (four to six characters) of the
@@ -59,9 +59,10 @@ Conformance vectors follow the append-only rule of
 [0012](0012-vector-immutability.md): stamped-token vectors are added as
 clarifying material, and floor-rejection vectors join the interop matrix once
 the library actually enforces. CLI adoption comes after the library ships the
-extension; the CLI's store schema is already version-ready from inception per
-[0021](0021-cli-command-surface.md) and [0020](0020-credential-storage.md), so
-no schema break is needed to start stamping.
+extension; the CLI's store schema is already generation-ready from inception
+per [0021](0021-cli-command-surface.md) and
+[0020](0020-credential-storage.md), so no schema break is needed to start
+stamping.
 
 ## Consequences
 
@@ -73,7 +74,7 @@ no schema break is needed to start stamping.
 - Floors and jti entries coexist in the allowlist. A specific token can still
   be struck individually while a floor handles the wholesale case; the two
   mechanisms do not compete.
-- Own-version-only keeps the stamp and the verifier logic simple: a token
+- Own-generation-only keeps the stamp and the verifier logic simple: a token
   states one number, the verifier compares it to one floor. The cost is that
   invalidating an ancestor does not by itself lower a descendant's stamp;
   cascade still works through the signing chain (a broken chain fails to
@@ -88,13 +89,13 @@ no schema break is needed to start stamping.
 
 ## Alternatives considered
 
-- **A full chain version vector in the stamp** (issuer version plus every
-  ancestor's version). It would let a verifier reason about the whole chain
-  from one token, at the cost of a larger claim, a stamp that must be
+- **A full chain generation vector in the stamp** (issuer generation plus
+  every ancestor's generation). It would let a verifier reason about the whole
+  chain from one token, at the cost of a larger claim, a stamp that must be
   recomputed when any ancestor bumps, and more wire surface to conceal.
   Rejected: the signing chain already propagates ancestor invalidation
-  (a revoked ancestor fails to resolve), so the extra versions buy little for
-  their weight. Own-version-only is the smaller, sufficient primitive.
+  (a revoked ancestor fails to resolve), so the extra generations buy little
+  for their weight. Own-generation-only is the smaller, sufficient primitive.
 - **A mandatory extension on all tokens.** Uniform enforcement, but it breaks
   every existing token and every verifier not yet aware of floors, violating
   the backwards-compatibility requirement. Optionality at both ends is what
@@ -111,4 +112,4 @@ no schema break is needed to start stamping.
 - **Keeping per-jti revocation as the only mechanism.** No new extension, no
   new schema, and rotation stays O(tokens) forever. Rejected: the enumeration
   cost is the specific pain this decision removes, and the store already tracks
-  the versions that make floors cheap.
+  the generations that make floors cheap.
