@@ -29,6 +29,12 @@ issue account tokens for the entire trust domain, and through them any user
 beneath. The seed never belongs on a server; it lives with the issuer, in a
 secrets manager, and touches production only to sign new credentials.
 
+> [!IMPORTANT]
+> The pinned operator public key is the trust domain's single anchor, and the
+> operator seed behind it is the ultimate secret. Re-pinning a new operator
+> public key everywhere is the only remedy for a compromised seed: neither the
+> allowlist nor epoch rotation contains it.
+
 A stolen operator seed is therefore the worst case, and it is worth being
 precise about what it buys and what still contains it:
 
@@ -92,6 +98,11 @@ allows:
   TLS so they are not exposed in transit, and give them a short validity window
   so a captured one ages out quickly.
 
+> [!CAUTION]
+> A bearer token is a replayable secret: anyone who captures it can act as its
+> subject until it expires or its account leaves the allowlist. Only user tokens
+> may be bearer, and only ever under TLS with a short validity window.
+
 There is a second reason to prefer signed requests. The possession check runs
 *before* any consumer-supplied extension check or validator, so a party that
 merely captured a token but cannot sign never triggers that work. A bearer token
@@ -121,6 +132,12 @@ longest a replay could still land inside a valid timestamp). The limit to be
 honest about: the built-in `MemoryReplayCache` is process-local. Across several
 server instances a replay could land on an instance that has not seen the nonce.
 Exactly-once across instances requires backing the cache with shared storage.
+
+> [!TIP]
+> For exactly-once across several instances, enable `WithReplayCache` with a
+> per-request nonce and back it with shared storage. The built-in
+> `MemoryReplayCache` is process-local, so each instance sees only its own
+> nonces.
 
 Message tokens have their own replay surface and their own levers, both
 receiver-side and both off unless set. Cross-destination replay is closed by

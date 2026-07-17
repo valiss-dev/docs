@@ -11,6 +11,11 @@ that all implementations speak, and the **library** that each language ships.
 You reason about interoperability through the spec version, never through a
 library's semantic version.
 
+> [!IMPORTANT]
+> The libraries are pre-1.0 and the wire format is not yet frozen, so nearly
+> every release touches versioned surface. Track interoperability by spec
+> version, not by any library's semantic version.
+
 This page covers both axes, how conformance to a spec version is proven, and how
 cross-library compatibility is gated in practice.
 

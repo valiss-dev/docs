@@ -56,6 +56,11 @@ the new file and hot-reload it, whatever your services read. The deadline is not
 
 ## Staggering to avoid expiry herds
 
+> [!TIP]
+> Jitter the `exp` across a batch issued together so lapses, and the renewals
+> they trigger, spread over a window instead of a synchronized wave of `expired`
+> rejections and a re-issue stampede.
+
 Credentials issued together with the same TTL expire together. Issue a batch of
 users in one run with a fixed lifetime and they all lapse in the same minute,
 which produces two coincident problems: a synchronized wave of `expired`

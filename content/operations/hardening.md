@@ -41,6 +41,12 @@ load failed, and it should abort startup rather than run.
 
 ## 3. Wire allowlist reload yourself
 
+> [!WARNING]
+> The library ships no allowlist watcher. `LoadAllowlistFile` reads the file
+> once. Wiring reload (a signal, a timer, an inotify hook) and validating each
+> new set before `Set` is your responsibility: an empty set silently revokes
+> every account.
+
 There is no file watcher in the library. `LoadAllowlistFile` reads a
 newline-delimited file once, and `StaticAllowlist.Set` atomically replaces the
 accepted set under a lock. Reload is the two composed by you: retain the
@@ -157,6 +163,12 @@ functions run in your own controlled tooling, off the serving host, with the
 seed material handled as above. See [Custody](/docs/concepts/custody/).
 
 ## 9. If you set `AllowMissingExtension`, prove your external gate runs
+
+> [!CAUTION]
+> `AllowMissingExtension` accepts tokens that carry no transport extension,
+> moving the entire authorization decision to a gate you run outside the
+> transport. If that gate is not wired on every path, the deployment is
+> authenticating requests and authorizing nothing.
 
 The HTTP and gRPC integrations authorize through signed extensions and fail
 closed: without `AllowMissingExtension`, every token in the chain must carry the

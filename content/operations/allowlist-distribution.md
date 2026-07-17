@@ -112,6 +112,12 @@ valid list.
 
 ## The blast radius
 
+> [!CAUTION]
+> An empty or truncated allowlist applied fleet-wide fails closed on every
+> request, every tenant, everywhere the bad list landed, with no error the
+> library raises to explain it. Validate before every swap: refuse an empty set,
+> refuse a cliff drop, and keep the last-known-good list.
+
 A bad allowlist is not one failure mode among many; it is the outage. A revoked
 tenant served a little too long is a bounded miss, but an empty or truncated list
 applied fleet-wide fails every request on every instance that took it, with no

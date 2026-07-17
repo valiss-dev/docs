@@ -12,6 +12,13 @@ its `exp`.
 
 ## The exp bounds the whole domain
 
+> [!WARNING]
+> When operator policy is enforced, the operator token's `exp` gates every
+> request in the domain. Once it lapses (two minutes past `exp`, the skew
+> grace), every account and user on every verifier fails with "the trust domain
+> is closed." This is the one expiry whose lapse is a full outage, not a partial
+> denial.
+
 When the operator token expires, nothing beneath it verifies. The verifier
 checks the operator token's window before it checks anything else, and a lapsed
 one is rejected with `operator token expired: the trust domain is closed`. That
