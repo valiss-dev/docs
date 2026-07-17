@@ -30,17 +30,17 @@ reject a version you do not implement; the current version is `1`.
 The payload is a JSON object with RFC 7519 field names, all optional except
 `valiss`, serialized in this order:
 
-| field | meaning |
-|---|---|
-| `jti` | content-derived token id (see below) |
-| `iat` | mint time, Unix seconds |
-| `iss` | issuer public key, nkey-encoded |
-| `name` | optional human label of the subject |
-| `sub` | subject public key, nkey-encoded |
-| `aud` | destination identity (message tokens) |
-| `exp` | expiry, Unix seconds; absent = never expires |
-| `nbf` | not-before, Unix seconds; absent = immediately valid |
-| `valiss` | the level-specific claim body |
+| field    | meaning                                              |
+| -------- | ---------------------------------------------------- |
+| `jti`    | content-derived token id (see below)                 |
+| `iat`    | mint time, Unix seconds                              |
+| `iss`    | issuer public key, nkey-encoded                      |
+| `name`   | optional human label of the subject                  |
+| `sub`    | subject public key, nkey-encoded                     |
+| `aud`    | destination identity (message tokens)                |
+| `exp`    | expiry, Unix seconds; absent = never expires         |
+| `nbf`    | not-before, Unix seconds; absent = immediately valid |
+| `valiss` | the level-specific claim body                        |
 
 The `valiss` section is discriminated by its `type` field:
 

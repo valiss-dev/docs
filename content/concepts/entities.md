@@ -33,7 +33,7 @@ consequence is that **the role is part of the key string**. Public keys and
 seeds render with a recognizable leading letter:
 
 | level    | seed prefix | public prefix |
-|----------|-------------|---------------|
+| -------- | ----------- | ------------- |
 | operator | `SO…`       | `O…`          |
 | account  | `SA…`       | `A…`          |
 | user     | `SU…`       | `U…`          |

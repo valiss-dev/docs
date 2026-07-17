@@ -17,7 +17,7 @@ what.
 Each token is signed by the key one level up, and the signing rules are strict:
 
 | token    | signed by       | subject (`sub`) is      |
-|----------|-----------------|-------------------------|
+| -------- | --------------- | ----------------------- |
 | operator | itself          | the operator key        |
 | account  | an operator key | the tenant's key        |
 | user     | an account key  | the user's key          |

@@ -51,7 +51,7 @@ Star counts snapshot 2026-07-16.
 ### Tier 0 — already covered by `contrib/httpauth`, document only
 
 | Framework   | Repo                       |  Stars |
-|-------------|----------------------------|-------:|
+| ----------- | -------------------------- | -----: |
 | net/http    | (stdlib)                   |      — |
 | chi         | `go-chi/chi`               | 22,545 |
 | gorilla/mux | `gorilla/mux`              | 21,845 |
@@ -66,7 +66,7 @@ packages.
 ### Tier 1 — dedicated adapters, in priority order
 
 | # | Framework | Repo                |  Stars | Effort | Note                                                                                   |
-|---|-----------|---------------------|-------:|:------:|----------------------------------------------------------------------------------------|
+| - | --------- | ------------------- | -----: | :----: | -------------------------------------------------------------------------------------- |
 | 1 | Gin       | `gin-gonic/gin`     | 88,920 |   S    | own `gin.Context` / `gin.HandlerFunc`                                                  |
 | 2 | go-zero   | `zeromicro/go-zero` | 33,193 |   S    | rest middleware is `func(http.HandlerFunc) http.HandlerFunc`, thin shim                |
 | 3 | Echo      | `labstack/echo`     | 32,527 |   S    | `echo.MiddlewareFunc`; `WrapMiddleware` exists but native adapter gives context access |
@@ -80,7 +80,7 @@ packages.
 ### Excluded
 
 | Framework | Repo                 |  Stars | Reason                                                                                                                                                          |
-|-----------|----------------------|-------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------- | -------------------- | -----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | fasthttp  | `valyala/fasthttp`   | 23,417 | HTTP engine, not a framework; the Fiber adapter covers its dominant use. A raw fasthttp middleware could later underpin Fiber/Atreugo/Gearbox at once; deferred |
 | Revel     | `revel/revel`        | 13,223 | effectively unmaintained                                                                                                                                        |
 | Martini   | `go-martini/martini` | 11,607 | unmaintained since ~2017; stars are historical                                                                                                                  |

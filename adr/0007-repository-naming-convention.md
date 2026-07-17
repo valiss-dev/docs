@@ -38,7 +38,7 @@ core artifact through interop, plus optional idiomatic adapter artifacts if
 demand appears (adapters are themselves published, so also `valiss-<lang>`).
 
 | Ecosystem      | Repo         | Serves                                     |
-|----------------|--------------|--------------------------------------------|
+| -------------- | ------------ | ------------------------------------------ |
 | Go             | `valiss-go`  | Go                                         |
 | Python         | `valiss-py`  | Python                                     |
 | Node / browser | `valiss-ts`  | TypeScript + JavaScript                    |

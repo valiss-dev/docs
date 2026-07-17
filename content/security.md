@@ -62,7 +62,7 @@ produce the signature.
 The consequences differ sharply by what an attacker steals and at which level:
 
 | stolen         | what it grants                                                                                       |
-|----------------|------------------------------------------------------------------------------------------------------|
+| -------------- | ---------------------------------------------------------------------------------------------------- |
 | operator token | nothing secret. It is a self-signed public policy statement (epoch, validity window).                |
 | operator seed  | full domain compromise. Mint any account, and any user beneath it. See the anchor section above.     |
 | account token  | nothing on a signing server. Account-level requests must always sign, so the token alone cannot act. |

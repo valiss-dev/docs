@@ -48,12 +48,12 @@ file fails closed at the door.
 A `Creds` value has three fields, `AccountToken`, `UserToken`, and `Seed`, and
 the combination present decides what kind of creds it is:
 
-| kind | account token | user token | seed | signs requests as |
-|---|---|---|---|---|
-| account-level | yes | no | account seed | the account |
-| user-level (lean) | no | yes | user seed | the user |
-| bundle | yes | yes | user seed | the user |
-| bearer | one token | maybe | none | nothing |
+| kind              | account token | user token | seed         | signs requests as |
+| ----------------- | ------------- | ---------- | ------------ | ----------------- |
+| account-level     | yes           | no         | account seed | the account       |
+| user-level (lean) | no            | yes        | user seed    | the user          |
+| bundle            | yes           | yes        | user seed    | the user          |
+| bearer            | one token     | maybe      | none         | nothing           |
 
 **Account-level** creds authenticate a tenant directly: the operator-signed
 account token and the account seed that signs its requests. **User-level** creds
