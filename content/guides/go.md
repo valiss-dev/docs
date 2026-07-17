@@ -152,6 +152,11 @@ allowlist, err := valiss.LoadAllowlistFile("/etc/valiss/allowlist")
 allowlist := valiss.AllowAll{}
 ```
 
+These three are bundled implementations. `Allowlist` is a one-method
+interface, so a custom implementation can source the accepted ids from a
+database or a per-request policy; see [Allowlist](../concepts/allowlist.md)
+for the contract.
+
 ### Verifier options
 
 - `WithSkew(d)` overrides the default 2-minute window for timestamp drift
@@ -159,6 +164,8 @@ allowlist := valiss.AllowAll{}
 - `WithReplayCache(cache)` rejects a signed request whose nonce was already
   seen. Signed clients must then send a nonce (enable `WithNonce` on the
   client transport). `valiss.NewMemoryReplayCache()` is a built-in cache.
+  It is process-local; `ReplayCache` is an interface, so backing it with
+  shared storage gives exactly-once across several server instances.
 - `WithExtensionType[T]()` eagerly rejects a request carrying a malformed
   instance of extension `T`, moving the failure to auth time. Retrieval with
   `ExtOf` never requires it.
@@ -198,6 +205,9 @@ verifier := valiss.NewVerifier(operatorPub, allowlist,
 ```
 
 Without a resolver, a credential missing its account token is rejected.
+`AccountTokenResolver` is a plain function, so beyond the static set it can
+resolve the account token dynamically per call, from a store or an issuing
+service.
 
 ### Trusting several operators
 
