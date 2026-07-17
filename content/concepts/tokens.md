@@ -73,6 +73,13 @@ insignificant whitespace, and Go's HTML-style escaping of `<`, `>`, and `&`). A
 verifier that only checks signatures may treat `jti` as opaque; one that
 re-derives it must match the serialization exactly.
 
+> [!NOTE]
+> Porting `jti` derivation means reproducing the reference serialization exactly:
+> field order, no insignificant whitespace, and Go's HTML-style escaping of `<`,
+> `>`, and `&`. A verifier that only checks signatures may treat `jti` as opaque;
+> one that re-derives it must match that byte shape or every id it computes will
+> differ.
+
 ## Validity is optional and absolute
 
 `exp` and `nbf` are absolute Unix-second timestamps and both are optional. An
@@ -89,6 +96,13 @@ off-the-shelf JWT libraries:
 - the algorithm identifier is `ed25519-nkey`, not the registered `EdDSA`, so a
   standards-compliant library rejects the header outright; and
 - `iss` and `sub` carry nkey-encoded public keys, not JWKs.
+
+> [!IMPORTANT]
+> Do not reach for a stock JWT library to verify a valiss token. The header
+> declares `alg` as `ed25519-nkey`, not the registered `EdDSA`, so a
+> standards-compliant verifier rejects it outright, and `iss`/`sub` carry
+> nkey-encoded keys rather than JWKs. A port implements the verification
+> algorithm directly; the Go library is the canonical verifier.
 
 This is a considered trade. Putting the key's role into the key material is what
 makes the strict signing hierarchy checkable at every hop, and no stock JWT

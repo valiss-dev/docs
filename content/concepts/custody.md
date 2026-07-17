@@ -18,6 +18,13 @@ the pieces valiss ships. Everything that describes the *custodian server* is a
 statement of a problem, not of a built component. The two are kept clearly
 apart.
 
+> [!NOTE]
+> There is no custodian server today. It is planned, not implemented: no release,
+> no code, and nothing in the protocol depends on it. Everything on this page that
+> describes custody as it works now is custody you arrange yourself out of the
+> pieces valiss ships; everything about the custodian server states a problem, not
+> a built component.
+
 ## Custody as it works today
 
 Today custody is self-custody. A service that authenticates with valiss holds

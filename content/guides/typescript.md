@@ -13,6 +13,12 @@ and verify tokens and signatures. It does not yet ship the transport or
 framework adapters or the integrated request verifier; see
 [Current limitations](#current-limitations) before you build on it.
 
+> [!NOTE]
+> `valiss-ts` is source-only and less complete than the Go and Python clients. It
+> is not published to npm (install it from source), and it ships the wire
+> primitives without a transport adapter or an integrated request verifier: you
+> attach the signed headers and compose the chain checks yourself.
+
 ## Requirements
 
 Node.js 20 or newer, or any runtime with WebCrypto Ed25519

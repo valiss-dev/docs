@@ -175,6 +175,13 @@ full pattern.
 
 ## From here to production
 
+> [!NOTE]
+> This walkthrough generates the signing seeds in-process to keep the example
+> self-contained. A real deployment never does that: the operator and account
+> seeds live in a secrets manager and never reach the server, which only ever
+> holds the operator public key and the allowlist. Treat the in-process key
+> generation here as a teaching device, not a template for production issuance.
+
 This example issues keys in-process for clarity. In a real deployment the
 signing seeds live in a secrets manager, not the server. The
 [`examples/minter`](https://github.com/valiss-dev/valiss-go/tree/main/examples/minter)

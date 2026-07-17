@@ -112,6 +112,13 @@ as the identity, which is why `Format` appends the plain warning to any file
 that contains one. Treat a credentials file with a seed as you would any private key:
 it is not a token, it is the ability to *be* the subject.
 
+> [!CAUTION]
+> A credentials file that carries a seed is a private key. The seed lets its
+> holder sign as the subject, which is why `Format` appends the plain warning to
+> any file containing one. Guard such a file exactly as you would guard the raw
+> private key: it is not a token to pass around, it is the ability to *be* the
+> subject.
+
 The library keeps custody one-directional. A seed lives only on the signing
 side; the server holds an operator public key and an allowlist and never a seed
 at all, so a verifier compromise cannot leak signing power. Bearer creds are the

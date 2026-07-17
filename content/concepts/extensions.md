@@ -68,6 +68,14 @@ dimension you mean to bound:
 httpauth.Ext{Methods: []string{"GET"}, Paths: []string{"/admin/*"}}
 ```
 
+> [!CAUTION]
+> A half-filled extension over-permits. Because a dimension constrains only when
+> populated, `Ext{Paths: []string{"/admin/*"}}` bounds the path but leaves every
+> method and host open, so it permits `DELETE /admin/*` as readily as a read. The
+> zero-value `Ext{}` grants nothing, but a grant that names some dimensions and
+> not others silently widens to everything it left unset. Name every dimension
+> you mean to bound.
+
 ## Fail closed, and enforce down the chain
 
 Transport enforcement fails closed. Every token in the chain must carry the
