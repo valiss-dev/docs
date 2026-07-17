@@ -213,7 +213,7 @@ with that two-minute grace in mind.
   Storing and distributing them is the issuer's responsibility and outside the
   library. The valiss CLI (early development) is the issuer-side tool being built
   for that custody, holding keys and tokens in an encrypted per-operator store;
-  see [Custodianship](/docs/concepts/custodianship/).
+  see [Custody](/docs/concepts/custody/).
 - **Never authorize on names.** A token's `name` is an issuer-asserted label,
   not checked for uniqueness and free to collide across operators. Key
   authorization decisions on public keys and extensions, not on names. See

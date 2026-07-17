@@ -1,11 +1,11 @@
 ---
-title: Custodianship
+title: Custody
 weight: 8
 ---
 
 A credential is only as safe as the party that holds it. In valiss the party
 that keeps a subject's seed, and the tokens that go with it, is that subject's
-**custodian**. Custodianship is the question of who that party is: the subject
+**custodian**. Custody is the question of who that party is: the subject
 itself, the issuer that minted the credential, or some component standing
 between a client and the verifier.
 
@@ -13,7 +13,7 @@ One thing to state plainly and up front: valiss has no custodian server today.
 A first-party service that would hold credentials on a client's behalf is
 **planned but not implemented**. It does not exist, it has no release, and
 nothing in the protocol depends on it. Everything below that describes
-custodianship *as it works now* is custody you already arrange yourself out of
+custody *as it works now* is custody you already arrange yourself out of
 the pieces valiss ships. Everything that describes the *custodian server* is a
 statement of a problem, not of a built component. The two are kept clearly
 apart.
@@ -37,7 +37,7 @@ issuer-side tool for exactly this custody: an operator's keys and tokens live in
 its encrypted per-operator store, and minting and [creds export](creds.md) run
 from there. Keeping the store that holds the seeds distinct from the services
 that only ever consume the creds it exports is the out-of-process separation
-that makes custodianship proper with today's parts. The Go library exposes the
+that makes proper custody possible with today's parts. The Go library exposes the
 same minting primitives directly for programmatic issuance, and `valiss-go`'s
 `examples/minter` is a minimal illustration of driving them out of process,
 resolving seeds from the environment rather than holding them.
