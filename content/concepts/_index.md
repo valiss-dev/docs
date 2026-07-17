@@ -1,9 +1,10 @@
 ---
 title: Concepts
 weight: 2
+description: "The valiss model, one concept per page: the operator/account/user key hierarchy, tokens, the fail-closed allowlist, extensions, rotation, and custody."
 ---
 
-valiss is decentralized tenant authentication: a server can authenticate a
+valiss is offline tenant authentication: a server can authenticate a
 request and attribute it to a tenant and an end user knowing only one pinned
 public key, with no network round-trip to an issuer. Everything a request
 carries is a self-contained signed credential that verifies offline. There is

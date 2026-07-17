@@ -1,5 +1,6 @@
 ---
 title: Documentation
+description: "Documentation for valiss, offline tenant authentication for services: quickstart, concepts, language guides, reference, and the wire specification."
 ---
 
 valiss is offline tenant authentication for services, built on a

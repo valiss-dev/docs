@@ -1,13 +1,14 @@
 ---
 title: Guides
 weight: 3
+description: "Integration guides for valiss: issuing credentials and verifying offline in Go, Python, and TypeScript, plus the language-neutral recipe."
 ---
 
 Integration guides for building on valiss: issuing credentials, wiring
 server-side verification into your transport or framework, and verifying
 tokens offline.
 
-valiss is decentralized tenant authentication built on a three-level chain
+valiss is offline tenant authentication built on a three-level chain
 of Ed25519 keys (operator, account, user), with an optional fourth level of
 per-message proof-of-origin tokens. Trust is a single public key pinned in
 the server; everything else is self-contained signed credentials that verify
