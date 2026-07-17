@@ -122,7 +122,7 @@ The library exposes every primitive the ceremony needs: `IssueOperator`,
 `NewKeyringVerifier`. Driving them in the right order is manual. Concretely:
 
 - **Issuing the operator token is programmatic only.** The `minter` example
-  mints plain identity account and user tokens and does not stamp epochs or
+  issues plain identity account and user tokens and does not stamp epochs or
   produce operator tokens at all. Step 1, and the epoch stamping in step 3, are
   hand-written Go against the library today, and the manifests and credentials
   files are hand-maintained.
@@ -134,5 +134,5 @@ The library exposes every primitive the ceremony needs: `IssueOperator`,
 The planned valiss CLI is what will own this. It holds the operator identity in
 its per-operator store (see [Custody](/docs/concepts/custody/)) and rolls the
 domain forward with a single `operator rotate` verb, issuing the new operator
-token and re-issuing beneath it rather than re-minting each token by hand. Until
+token and re-issuing beneath it rather than each token by hand. Until
 that ships, the runbook above is the ceremony.

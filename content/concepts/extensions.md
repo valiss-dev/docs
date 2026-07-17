@@ -28,7 +28,7 @@ func (QueryFilters) ExtensionName() string { return "acme.filters" }
 ```
 
 The name is the key under `ext`, so it must be unique within a token; a producer
-cannot emit two extensions with the same name. Mint the value into a token at
+cannot emit two extensions with the same name. Embed the value into a token at
 issue time, recover it in the handler by type:
 
 ```go
@@ -78,14 +78,14 @@ A deployment that authorizes entirely outside the transport can opt out with
 an unset field.
 
 Enforcement also compounds down the chain, and it is a verify-time property, not
-a mint-time one. `IssueUser` runs no subset check: an account can mint a user
+an issue-time one. `IssueUser` runs no subset check: an account can issue a user
 token whose extension names broader bounds than the account's own. What contains
 it is verification. When both the account and the user token carry the
 extension, the verifier authorizes a request only if every level permits it (an
 AND across the chain), so the effective grant is the intersection. A user token
 that claims more than its account is simply capped at the account's bounds when
 verified, and a tenant handed a capped account credential cannot exceed that cap
-no matter what it mints.
+no matter what it issues.
 
 ## Related
 

@@ -5,7 +5,7 @@ description: "What valiss inherits from NATS and its nsc tooling (nkey encoding,
 ---
 
 valiss did not invent its key encoding, its delegation chain, or its
-credentials-file layout. All three come, closely and deliberately, from
+credentials-file layout. All three come, closely and directly, from
 [NATS](https://nats.io) and its `nsc` tooling. The reference implementation
 imports the same `github.com/nats-io/nkeys` library that NATS itself uses, and if
 you have run `nsc` you will recognize a great deal of valiss on sight. This page
@@ -89,9 +89,9 @@ gRPC transports are themselves built as extensions. The change follows directly
 from having no messaging subjects to permission: authorization in valiss is
 whatever typed grants your application defines.
 
-**Two smaller, deliberate divergences.** valiss accepts *only* `ed25519-nkey`,
-while NATS also accepts a legacy `ed25519` identifier; the stricter check is
-intentional. And although both derive the id by blank-then-hash, the digests
+**Two smaller divergences.** valiss accepts *only* `ed25519-nkey`,
+while NATS also accepts a legacy `ed25519` identifier. And although both derive
+the id by blank-then-hash, the digests
 differ: valiss hashes its token payload with SHA-256, while NATS hashes the whole
 claims with SHA-512/256. The ids are therefore not interchangeable, and
 reproducing a valiss id in another language means reproducing valiss's exact

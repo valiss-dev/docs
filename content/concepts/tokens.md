@@ -65,7 +65,7 @@ The valiss CLI (early development) is designed to expose this reproducibility as
 without evaluating trust, the quick way to see what a token carries and confirm
 its `jti`. That command is not yet runnable (a stub today); until it lands, the
 library's `valiss.Decode` does the same untrusted decode from any token, and
-`examples/minter` prints a minted token's `jti` as metadata.
+`examples/minter` prints an issued token's `jti` as metadata.
 
 Reproducing a `jti` byte-for-byte across languages requires reproducing the
 exact JSON serialization the reference implementation uses (field order, no
@@ -83,7 +83,7 @@ fresh token.
 
 ## Not a stock JWT, on purpose
 
-valiss tokens are shaped like JWTs but are deliberately **not** verifiable with
+valiss tokens are shaped like JWTs but are **not** verifiable with
 off-the-shelf JWT libraries:
 
 - the algorithm identifier is `ed25519-nkey`, not the registered `EdDSA`, so a

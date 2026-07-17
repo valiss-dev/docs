@@ -33,7 +33,7 @@ The payload is a JSON object with RFC 7519 field names, all optional except
 | field    | meaning                                              |
 | -------- | ---------------------------------------------------- |
 | `jti`    | content-derived token id (see below)                 |
-| `iat`    | mint time, Unix seconds                              |
+| `iat`    | issue time, Unix seconds                              |
 | `iss`    | issuer public key, nkey-encoded                      |
 | `name`   | optional human label of the subject                  |
 | `sub`    | subject public key, nkey-encoded                     |
@@ -97,7 +97,7 @@ base32-encode the digest (RFC 4648, uppercase, no padding). Reproducing it
 requires byte-identical JSON: fields in the table's order, no whitespace, and
 Go `encoding/json` escaping rules (which HTML-escape `<`, `>`, and `&`), so
 re-deriving from a reparsed payload is only possible if your serializer
-reproduces that exact shape. Two tokens with identical claims minted within
+reproduces that exact shape. Two tokens with identical claims issued within
 the same second therefore share a `jti`; the allowlist's registration dedup
 relies on this. Verifiers that only check signatures may treat `jti` as
 opaque.

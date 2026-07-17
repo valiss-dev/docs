@@ -4,7 +4,7 @@ weight: 1
 ---
 
 This walks the shortest working path with the Go library as it ships today:
-install it, create an operator, account, and user, mint their tokens, and
+install it, create an operator, account, and user, issue their tokens, and
 verify a signed request server-side against the allowlist. Everything runs in
 one process against a local listener, so you can see the full loop before
 splitting it across a real client and server.
@@ -25,7 +25,7 @@ adds the net/http middleware and client transport this example uses.
 
 ## The whole loop
 
-Drop this into `main.go` and run `go run .`. It mints the three-level key
+Drop this into `main.go` and run `go run .`. It issues the three-level key
 chain, stands up an HTTP server that trusts only the operator public key, and
 makes one signed request through it.
 
@@ -57,7 +57,7 @@ func main() {
 
 	// 2. Account: one per tenant. The operator signs its token. The HTTP
 	// extension bounds what the tenant may call; the contrib transports
-	// enforce it fail-closed, so every token in the chain must carry it.
+	// enforce it fail closed, so every token in the chain must carry it.
 	account, err := nkeys.CreateAccount()
 	must(err)
 	accountPub, err := account.PublicKey()
@@ -174,20 +174,20 @@ full pattern.
 
 ## From here to production
 
-This example mints keys in-process for clarity. In a real deployment the
+This example issues keys in-process for clarity. In a real deployment the
 signing seeds live in a secrets manager, not the server. The
 [`examples/minter`](https://github.com/valiss-dev/valiss-go/tree/main/examples/minter)
-tool in the Go repository mints credentials from a manifest of public keys,
-resolving seeds from the environment, and writes a creds file the client loads
+tool in the Go repository issues credentials from a manifest of public keys,
+resolving seeds from the environment, and writes a credentials file the client loads
 with `creds.Load`. The server side is unchanged: it still pins the operator
 public key and consults the allowlist.
 
 The valiss CLI (early development) will be the issuer-side counterpart to this
-in-process minting: keeping operator keys and tokens in an encrypted
-per-operator store and running minting and creds export from there, so an
+in-process issuance: keeping operator keys and tokens in an encrypted
+per-operator store and running issuance and creds export from there, so an
 operator issues credentials without writing Go. Its command tree is designed
 but not yet runnable (every command is currently a stub), so today that
-issuer-side minting is the library `Issue*` calls above or `examples/minter`.
+issuer-side issuance is the library `Issue*` calls above or `examples/minter`.
 
 ## Next steps
 

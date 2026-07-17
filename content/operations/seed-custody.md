@@ -53,7 +53,7 @@ So an offline, durable backup of the operator seed, made at generation time, is
 mandatory, not a nice-to-have. For a high-value operator the mature posture is to
 remove the single point of failure entirely: split custody so no one party holds
 the whole seed (secret-sharing across several holders, for example), or keep the
-key in an HSM that signs without ever exporting it. This page names the shape;
+key in an HSM that signs without ever exporting it. The shape is what matters here;
 the vendor and the threshold are yours to choose.
 
 ## Recovery from loss

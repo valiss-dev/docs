@@ -5,7 +5,7 @@ description: "The wire-spec and library version axes, and how cross-language int
 ---
 
 valiss is a multi-language framework, and its whole value is that a credential
-minted by one implementation verifies in every other. That guarantee rests on
+issued by one implementation verifies in every other. That guarantee rests on
 keeping two different things versioned separately: the **wire specification**
 that all implementations speak, and the **library** that each language ships.
 You reason about interoperability through the spec version, never through a
@@ -55,7 +55,7 @@ of its three independently versioned artifacts (ADR 0009):
 - **Tokens** carry `"ver":1` in the JWT header. A version-agnostic reader reads
   the envelope and the version without touching the payload, then dispatches to
   the matching per-version decoder. The current wire version is 1.
-- **The creds file** carries a `VALISS-CREDS-VERSION: 1` header line, checked
+- **The credentials file** carries a `VALISS-CREDS-VERSION: 1` header line, checked
   before the payload. It versions the file container only; the tokens inside
   carry their own token version. An absent header reads as the current version.
 - **The request signature** binds a version tag (`valiss-req-v1`) into the
@@ -69,7 +69,7 @@ request signed under any other version cannot match a v1 reconstruction, so it
 fails closed. And the JWS-compact envelope is fixed across versions, so the
 version tag stays readable.
 
-Tokens are always minted at the current version; any supported version can be
+Tokens are always issued at the current version; any supported version can be
 read. Adding a version is additive: a new set of per-version types, one decoder,
 and one dispatch case, with nothing outside that set changed.
 
@@ -79,7 +79,7 @@ Conformance to a spec version is proven, not asserted, through a two-layer model
 (ADR 0010).
 
 **Static vectors are the wire contract.** The `spec/vectors/` corpus pairs each
-artifact (tokens, signatures, creds files) with its expected outcome: either
+artifact (tokens, signatures, credentials files) with its expected outcome: either
 success with the verified claims, or failure with a reason code from the spec's
 error taxonomy. The vectors are verify-side and deterministic, and every
 implementation ships an offline runner that must pass all of them. They are

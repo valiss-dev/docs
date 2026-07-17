@@ -47,7 +47,7 @@ adversarial one, and the reason code is what tells them apart.
   it is probing, not staleness.
 - **`epoch_mismatch` with no rotation in progress.** During a rotation ceremony
   a burst is expected as producers catch up. Outside one it is a real signal:
-  credentials minted at an epoch your domain has moved past, which means either
+  credentials issued at an epoch your domain has moved past, which means either
   replayed old credentials or a ceremony that half-completed and left some
   issuer behind. Either way the fix is operational, and the alert should fire
   precisely because no rotation was supposed to be happening.

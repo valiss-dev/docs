@@ -30,7 +30,7 @@ through a library's semantic version.
 | Component        | Language / repo        | Status                                                                     |
 | ---------------- | ---------------------- | -------------------------------------------------------------------------- |
 | Reference        | Go (valiss-go)         | Full. Source of truth for the scheme; issue, verify, transports, adapters. |
-| Port             | Python (valiss-py)     | Full port: mint, sign, verify, plus Django and ASGI integrations. On PyPI. |
+| Port             | Python (valiss-py)     | Full port: issue, sign, verify, plus Django and ASGI integrations. On PyPI. |
 | Core wire layer  | TypeScript (valiss-ts) | Sign and verify primitives only. Source-only, not published to npm.        |
 | Issuer CLI       | valiss-cli             | Designed and in active development. Not released.                          |
 | Custodian server | (none yet)             | Planned. Not implemented.                                                  |

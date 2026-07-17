@@ -34,7 +34,7 @@ but nothing can be cut off early. Do not ship it.
 
 To revoke an account, remove its `jti` from the allowlist. The next request
 carrying that account token is rejected. There is no propagation delay to a
-remote service and no token to blacklist everywhere: the change is local to the
+remote service and no token to denylist everywhere: the change is local to the
 verifier's copy of the list, and `StaticAllowlist` supports replacing the whole
 set atomically (for example after reloading a file) with `Set`.
 
@@ -43,7 +43,7 @@ allowlist.Set(currentAccountIDs) // reload after an issuer change
 ```
 
 On the issuer side, the valiss CLI (early development) is designed to keep the
-allowlist as a first-class object alongside the tokens it mints, exporting the
+allowlist as a first-class object alongside the tokens it issues, exporting the
 exact file a server loads so deposits and revocations issue from the same place
 as the tokens they gate. Those commands are stubs today, so for now the
 allowlist file is hand-maintained: `examples/minter` prints each account

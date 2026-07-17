@@ -4,7 +4,7 @@ weight: 2
 ---
 
 `valiss` is the Python client for the valiss scheme: it parses credentials
-files, mints short-lived tokens, signs HTTP and gRPC requests, and verifies
+files, issues short-lived tokens, signs HTTP and gRPC requests, and verifies
 them server-side without a round trip to the Go reference. It implements wire
 spec 1 and interchanges credentials, tokens, and signatures byte for byte with
 the Go and TypeScript implementations.
@@ -17,7 +17,7 @@ README.
 
 ## Install
 
-The core (creds parsing, token minting, request signing, verification) has one
+The core (creds parsing, token issuance, request signing, verification) has one
 dependency, `cryptography`. HTTP client support is optional extras.
 
 ```sh
@@ -123,7 +123,7 @@ c = creds.load("alice.creds")
 headers = httpauth.credential_headers(c, "GET", "api.example.com", "/v1/whoami")
 ```
 
-For a replay-cache server, mint a nonce and pass it through:
+For a replay-cache server, generate a nonce and pass it through:
 
 ```python
 from valiss import token

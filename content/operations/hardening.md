@@ -82,7 +82,7 @@ is a full outage rather than a partial denial.
 Monitor its `exp` with a lead time longer than a rotation takes, and re-issue
 before it lands. The keyring is what makes the changeover gap-free: it holds
 several epochs for one operator key at once, so you register the new-epoch token
-alongside the old one and let producers re-mint at their own pace, dropping the
+alongside the old one and let producers re-issue at their own pace, dropping the
 old entry only after the grace overlap. Never let the only trusted operator
 token expire with no successor already trusted.
 
@@ -109,7 +109,7 @@ The built-in `MemoryReplayCache` has limits you must design around:
   bare `bool`. A shared backend that times out or errors cannot report that
   through the interface, so your implementation must decide, explicitly, whether
   a backend failure fails open (serve, risking a missed replay) or fails closed
-  (reject, risking an outage). Make that choice deliberately; there is no
+  (reject, risking an outage). Make that choice explicitly; there is no
   default to inherit.
 - **It never covers bearer tokens.** The replay check lives on the signed path.
   A bearer request carries no signature and no nonce, so the cache does nothing

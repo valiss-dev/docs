@@ -17,7 +17,7 @@ The short version of the argument for valiss is the one the
 auth dependency, something every request consults and every deployment keeps
 alive, and valiss inverts that into a single pinned operator public key and
 self-contained signed credentials that verify with no network call. The rest of
-this page is about when that inversion is worth its costs.
+the rest weighs when that inversion is worth its costs.
 
 ## OAuth2 and OIDC
 

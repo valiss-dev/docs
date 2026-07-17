@@ -24,7 +24,7 @@ and checks the signature and the key role at every hop.
 
 Because the anchor is a public key, it is not a secret. The corresponding
 **operator seed is the ultimate secret in the system.** Whoever holds it can
-mint account tokens for the entire trust domain, and through them any user
+issue account tokens for the entire trust domain, and through them any user
 beneath. The seed never belongs on a server; it lives with the issuer, in a
 secrets manager, and touches production only to sign new credentials.
 
@@ -41,7 +41,7 @@ precise about what it buys and what still contains it:
   trust in the operator key alone and holds no allowlist, so a stolen operator
   seed forges provenance that offline receivers accept.
 - Epoch [rotation](/docs/concepts/rotation/) does not contain it either: the
-  holder of the seed can re-mint at whatever epoch you advance to.
+  holder of the seed can re-issue at whatever epoch you advance to.
 
 The only full remedy for operator-seed compromise is pinning a new operator
 public key everywhere. Rotation and the allowlist are for the credentials
@@ -62,16 +62,16 @@ The consequences differ sharply by what an attacker steals and at which level:
 | stolen         | what it grants                                                                                       |
 | -------------- | ---------------------------------------------------------------------------------------------------- |
 | operator token | nothing secret. It is a self-signed public policy statement (epoch, validity window).                |
-| operator seed  | full domain compromise. Mint any account, and any user beneath it. See the anchor section above.     |
+| operator seed  | full domain compromise. Issue any account, and any user beneath it. See the anchor section above.     |
 | account token  | nothing on a signing server. Account-level requests must always sign, so the token alone cannot act. |
-| account seed   | full tenant takeover: sign as the tenant and mint user tokens, bounded by the account's own scope.   |
+| account seed   | full tenant takeover: sign as the tenant and issue user tokens, bounded by the account's own scope.   |
 | user token     | nothing, unless it is a bearer token. A signed request still needs the user seed.                    |
 | user seed      | act as that user, within its bounds.                                                                 |
 | bearer token   | direct use as that user until the token expires or its account leaves the allowlist.                 |
 
 Two properties bound the damage even when a seed is stolen. Delegation cannot
-widen: an account seed can mint users, but never more scope than the account
-itself holds, and an account can never mint another account. And revoking the
+widen: an account seed can issue users, but never more scope than the account
+itself holds, and an account can never issue another account. And revoking the
 account cuts off every user beneath it in one edit. A stolen account seed is a
 tenant-level breach, not a domain-level one.
 
@@ -148,7 +148,7 @@ subtlety is worth internalizing: an empty dimension imposes no restriction, so
 `Ext{Paths: ["/admin/*"]}` permits those paths under *any* method. To bound a
 surface you must name every dimension you mean to bound. A deployment that
 authorizes entirely outside the transport can opt out with
-`AllowMissingExtension`, but that is a deliberate choice, not an accident.
+`AllowMissingExtension`, but that opt-out is explicit, never a default.
 Enforcement also compounds down the chain, and does so at verify time: issuance
 runs no subset check, so a user token may name broader bounds than its account,
 but the verifier authorizes only when every level permits the request (an AND
@@ -208,8 +208,8 @@ Revocation without an issuer to call is bounded, and the boundaries matter.
 - **The allowlist keys accounts, not users.** There is no per-user allowlist
   entry, so you cannot revoke a single user through the allowlist without
   revoking its account. To cut off one user, let its (short) TTL lapse, or
-  revoke the whole account and re-mint the rest.
-- **Domain-wide revocation is epochs.** Bump the operator epoch and re-mint;
+  revoke the whole account and re-issue the rest.
+- **Domain-wide revocation is epochs.** Bump the operator epoch and re-issue;
   every token from an earlier epoch is rejected on next use, and the operator
   token's own expiry bounds the whole domain. See [Rotation](/docs/concepts/rotation/).
 - **None of it revokes the operator seed.** As above, a leaked operator seed is
@@ -230,7 +230,7 @@ with that two-minute grace in mind.
   for that custody: it will hold keys and tokens in an encrypted per-operator
   store, though its commands are designed and not yet runnable (every one is a
   stub today). For now that custody is arranged from the parts valiss ships,
-  keeping seeds in a secrets manager and minting through the library or
+  keeping seeds in a secrets manager and issuing through the library or
   `examples/minter`; see [Custody](/docs/concepts/custody/).
 - **Never authorize on names.** A token's `name` is an issuer-asserted label,
   not checked for uniqueness and free to collide across operators. Key

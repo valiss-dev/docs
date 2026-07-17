@@ -10,11 +10,11 @@ levels, plus an optional fourth level that exists only per message:
    value a server pins; everything else verifies against it. An operator signs
    account tokens.
 2. **Account (tenant).** One per customer. The operator signs each account an
-   *account token*. An account signs user tokens, so a tenant can mint its own
+   *account token*. An account signs user tokens, so a tenant can issue its own
    users without asking you.
 3. **User.** An end user or a service under an account. A user signs per-request
    proofs, and, if it needs to, per-message proofs.
-4. **Message (optional).** A user key can additionally mint short-lived,
+4. **Message (optional).** A user key can additionally issue short-lived,
    self-signed proofs of origin for individual artifacts it emits (webhooks,
    queue messages, exported documents). Message tokens are proofs, never
    credentials: possessing one grants nothing, and a request verifier never
@@ -22,7 +22,7 @@ levels, plus an optional fourth level that exists only per message:
 
 The delegation only ever flows downward, and never widens: an account can grant
 its users no more than it holds itself, and revoking an account cuts off
-everything beneath it. That property is what lets you hand a customer one
+everything beneath it. That property is what lets you hand a tenant one
 account credential and stop thinking about how they subdivide it.
 
 The signing chain, one operation per hop:

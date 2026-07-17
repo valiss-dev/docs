@@ -4,7 +4,7 @@ weight: 6
 ---
 
 [Entities](entities.md) names a fourth, optional level below the user: a proof
-a user key mints for a single artifact it emits. [Tokens](tokens.md) shows how
+a user key issues for a single artifact it emits. [Tokens](tokens.md) shows how
 that message token sits at the bottom of the signing hierarchy, self-signed
 (`iss == sub`) by the user key. This page is about what that level is *for*:
 attaching a verifiable origin to a message that travels on its own, long after
@@ -36,19 +36,19 @@ more. It does not let them act as the user, reach the server, or forge a
 different payload.
 
 To keep that exposure small, a message token must carry an expiry: `IssueMessage`
-refuses to mint one without a validity window, and the contrib transports default
+refuses to issue one without a validity window, and the contrib transports default
 to a 30-second window (`valiss.DefaultMessageTTL`). An eternal proof of origin
 only widens the window in which a captured token still verifies.
 
 ## What a message token binds
 
-A message token is minted from the emitter's user key and pins the message down
+A message token is issued from the emitter's user key and pins the message down
 along several axes at once:
 
 - **The payload**, through a SHA-256 checksum (`valiss.Checksum`). A receiver
   that re-hashes the bytes it actually received and compares closes payload
   tampering.
-- **The destination**, through an audience (`aud`). A token minted for one
+- **The destination**, through an audience (`aud`). A token issued for one
   receiver does not verify at another, which closes cross-destination replay.
 - **The epoch**, so a message is bound to the same trust-domain epoch as the
   credentials that authorized its emitter (see [Rotation](rotation.md)).
@@ -56,7 +56,7 @@ along several axes at once:
   the signing key, so a receiver can walk operator to account to user to message
   from the operator key alone.
 
-The emitter chooses those bindings at mint time; the receiver decides which of
+The emitter chooses those bindings at issue time; the receiver decides which of
 them to insist on at verification time. The [Go guide](../guides/go.md#message-tokens)
 covers the `IssueMessage` and `VerifyMessage` calls; [Verifying tokens](../guides/verifying.md#verifying-a-message-token-full-chain)
 gives the byte-level algorithm for porting to another language.
@@ -92,7 +92,7 @@ credential transports but proving origin rather than authenticating a caller.
 Per the naming split, the `sig` suffix marks message-token verification that
 grants no identity, against the `auth` suffix that grants one:
 
-- **`contrib/httpsig`** attaches a freshly minted token to each outgoing HTTP
+- **`contrib/httpsig`** attaches a freshly issued token to each outgoing HTTP
   request and verifies it on the receiving side, binding the audience to the
   request's host and path and the checksum to the body.
 - **`contrib/grpcsig`** does the same per gRPC call, binding the checksum to the

@@ -81,7 +81,7 @@ The tradeoff is unavoidable downtime for that one tenant: between revocation and
 the re-keyed credentials converging across the fleet, the tenant cannot
 authenticate. A compromised account key cannot be honored while you re-key, so
 the tenant's outage is the cost of containment. It does not reach other tenants:
-delegation cannot widen, and an account can never mint another account.
+delegation cannot widen, and an account can never issue another account.
 
 ## Leaked or suspected operator seed
 
@@ -89,7 +89,7 @@ This is the worst case, and the levers behave differently, so be precise about
 what is contained and what is not.
 
 - **Request-path damage is partly contained by the allowlist.** A forged account
-  token minted from the stolen seed has a fresh content-hash `jti` that is on no
+  token issued from the stolen seed has a fresh content-hash `jti` that is on no
   server's allowlist, and an attacker cannot add to your allowlist. So the
   stolen seed does not, by itself, admit a new tenant to an allowlist-enforcing
   server.

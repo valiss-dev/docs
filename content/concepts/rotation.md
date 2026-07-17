@@ -43,7 +43,7 @@ operator policy.
 
 ## Rotating a whole domain at once
 
-To rotate the trust domain, bump the operator's epoch and re-mint. Publish an
+To rotate the trust domain, bump the operator's epoch and re-issue. Publish an
 operator token at epoch 4, re-issue the account (and user) tokens at epoch 4,
 and every token from an earlier epoch is rejected on its next use. No allowlist
 edits, no per-tenant work, no waiting for old tokens to expire. One counter
@@ -51,8 +51,8 @@ advance retires the entire generation of credentials beneath it.
 
 Driving this ceremony is issuer-side work. The valiss CLI (early development) is
 designed to hold the operator identity in its per-operator store and roll it
-forward with `operator rotate`, re-issuing beneath it rather than re-minting
-each token by hand; that command is not yet runnable (a stub today). Until it
+forward with `operator rotate`, re-issuing beneath it rather than each token
+by hand; that command is not yet runnable (a stub today). Until it
 lands, the ceremony is the library issuance calls (`IssueOperator` at the new
 epoch, then `IssueAccount`/`IssueUser` beneath it) or `examples/minter`.
 
@@ -69,7 +69,7 @@ for cutting off individual tenants.
 
 ## Grace periods with a keyring
 
-A hard epoch flip assumes every producer can re-mint at the same instant. When
+A hard epoch flip assumes every producer can re-issue at the same instant. When
 they cannot, a verifier can trust a **keyring** instead of a single operator
 token. A keyring holds several full operator tokens, and one operator key may
 appear at more than one epoch at the same time.
@@ -80,7 +80,7 @@ verifier := valiss.NewKeyringVerifier(k, allowlist)
 ```
 
 Registering both the outgoing and the incoming epoch side by side is the
-receiver-side **grace period**: producers re-mint at their own pace, and both
+receiver-side **grace period**: producers re-issue at their own pace, and both
 epochs verify meanwhile. You bound the window by giving the transitional
 old-epoch operator token a short `exp`, which closes the grace cryptographically
 when it lapses. Entries are selected by the operator named in the credential

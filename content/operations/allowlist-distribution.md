@@ -116,7 +116,7 @@ A bad allowlist is not one failure mode among many; it is the outage. A revoked
 tenant served a little too long is a bounded miss, but an empty or truncated list
 applied fleet-wide fails every request on every instance that took it, with no
 error the library raises to explain why. There is no partial version of this
-failure: fail-closed means all tenants, at once, everywhere the bad list landed.
+failure: failing closed means all tenants, at once, everywhere the bad list landed.
 
 That is why the validation gate is not optional polish. It is the safety that
 turns the worst plausible distribution fault, a file that arrived empty or

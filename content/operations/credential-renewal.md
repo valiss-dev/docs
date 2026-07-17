@@ -74,7 +74,7 @@ Renewal is driven from the horizon, not from failures. By the time `expired`
 rejections appear, the outage for that holder has already started. Track the
 minimum time-to-expiry across the credentials you issue and alert while more than
 a lead time is still left, so renewal fires ahead of the lapse. The
-expiry-horizon signal is covered in [Monitoring](../monitoring/); this page is
+expiry-horizon signal is covered in [Monitoring](../monitoring/); renewal is
 the ceremony that signal should trigger.
 
 ## Bearer tokens: TTL is the only revocation

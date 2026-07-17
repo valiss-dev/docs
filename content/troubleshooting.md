@@ -30,7 +30,7 @@ TypeScript auth hooks), and that no proxy strips the `valiss-account-token` and
 (reason `not_allowlisted`). The account token verified against the pinned
 operator key, but its `jti` is not in the server's allowlist, which fails
 closed. Check that the `jti` the minter printed is the one loaded, that the
-allowlist file was reloaded after any re-issue (a re-mint with different claims
+allowlist file was reloaded after any re-issue (issuing with different claims
 produces a different `jti`), and that you did not mean to run `AllowAll`.
 
 **Wrong operator pinned.** Symptom: 401, `account token not signed by the
@@ -46,7 +46,7 @@ not yet valid`, or `operator token expired: the trust domain is closed`. A
 token's `exp` or `nbf` fell outside the skew window (2 minutes by default); an
 expired operator token closes the whole trust domain until a fresh one is
 published. Check the clocks on the issuing and verifying sides, the TTL you
-minted with, and whether an operator-token rotation ceremony was allowed to
+issued with, and whether an operator-token rotation ceremony was allowed to
 lapse. `WithSkew` widens the tolerance when drift is unavoidable.
 
 ## Epoch mismatch after a rotation
@@ -56,7 +56,7 @@ user token, or `no trusted operator <key> at epoch N` (reason `epoch_mismatch`
 or `unknown_operator`). The verifier enforces an operator token or keyring at
 one epoch and the presented token carries another. This is the intended outcome
 of an epoch bump: every earlier-epoch token is rejected cryptographically. To
-resolve it, re-mint the account and user tokens at the current epoch. For a
+resolve it, re-issue the account and user tokens at the current epoch. For a
 grace period, register both the outgoing and incoming epochs in a `Keyring` so
 the old epoch keeps verifying until its operator token's `exp` lapses. Unstamped
 tokens are epoch 0.
@@ -88,7 +88,7 @@ verifier with `WithSkew`.
 `request nonce already seen (replay)`. The verifier runs a replay cache. The
 first says the signed request carried no nonce; the second says the nonce was
 already spent. Enable the nonce on the client (`httpauth.WithNonce()`, or
-`nonce=True` in Python), and make each retry mint a fresh nonce rather than
+`nonce=True` in Python), and make each retry use a fresh nonce rather than
 resend the identical request.
 
 ## The client is denied 403 (PermissionDenied)
@@ -103,9 +103,9 @@ token are enforced together, so an account-level cap bounds every user beneath
 it.
 
 **Token carries no extension.** Symptom: 403, `token carries no http extension`
-or `token carries no grpc extension`. Transport enforcement is fail-closed, and
+or `token carries no grpc extension`. Transport enforcement fails closed, and
 a token somewhere in the chain does not carry the transport extension at all.
-Mint every token in the chain with the extension (the zero-value `Ext{}` grants
+Issue every token in the chain with the extension (the zero-value `Ext{}` grants
 nothing; allow-all is the explicit wildcard `[]string{"*"}`). Only when
 authorization lives entirely outside the transport, build the middleware with
 `AllowMissingExtension()`.
@@ -121,13 +121,13 @@ client send a bundle that embeds the account token.
 ## A credentials file will not load
 
 Symptom: `creds: no token markers found`, `creds seed: ...`, `creds token:
-...`, or `creds: unsupported version N`. The file is not a valiss creds file, a
+...`, or `creds: unsupported version N`. The file is not a valiss credentials file, a
 token or seed block is corrupt, or it declares a format version this build does
 not implement. Check that the file is the one the minter wrote, whole and
 untruncated, that the seed and token blocks are intact base32, and that the
 library is not older than the format that produced the file.
 
-## Minting a token errors
+## Issuing a token errors
 
 Issuance validates the key roles up front, so these fire at `Issue*`, not at
 verify time:
@@ -141,7 +141,7 @@ verify time:
 - `audience, checksum, and chain apply only to message tokens`: `WithAudience`,
   `WithChecksum`, or `WithChain` was passed to an identity issuer.
 - `message tokens must carry an expiry (WithTTL or WithExpiry)`: message tokens
-  are short-lived by rule and cannot be minted without one.
+  are short-lived by rule and cannot be issued without one.
 - `duplicate extension "name"`: two extensions with the same `ExtensionName` on
   a single token.
 
@@ -160,12 +160,12 @@ accepts one as a credential. Its own failures:
   definition; a schema drift or a mismatched `google.golang.org/protobuf`
   produces different bytes and fails here.
 - `message token audience "...", expected "..."` (reason `wrong_audience`): the
-  token was minted for a different destination, or carries none while the
+  token was issued for a different destination, or carries none while the
   receiver expects one. Set `ExpectAudience` to the destination you verify for.
 - `message token expired`: a stored message was verified at `now` instead of its
   receipt instant. Pass `valiss.At(receivedAt)`.
 - `message token carries no chain and none was supplied (WithChainTokens)`
-  (reason `no_chain`): mint with `WithChain` to embed the provenance, or supply
+  (reason `no_chain`): issue with `WithChain` to embed the provenance, or supply
   it out of band on the verify side with `WithChainTokens`.
 - `message checksum requires a proto.Message, got T` (grpcsig): the value handed
   to the gRPC message signer is not a protobuf message.

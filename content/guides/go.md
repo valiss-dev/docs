@@ -4,7 +4,7 @@ weight: 1
 ---
 
 The Go reference implementation is the module `valiss.dev/valiss`. It covers
-the whole scheme: minting operator, account, user, and message tokens;
+the whole scheme: issuing operator, account, user, and message tokens;
 packaging credentials; and verifying per-request credentials server-side.
 Transport and framework adapters live under `contrib/`.
 
@@ -25,7 +25,7 @@ The module requires Go 1.26. Key generation and signing use
 
 ## Issuing tokens
 
-Tokens are minted from key pairs. A signer's seed never leaves the issuing
+Tokens are issued from key pairs. A signer's seed never leaves the issuing
 side; the server only ever sees public keys and tokens.
 
 ```go
@@ -74,7 +74,7 @@ userToken, err := valiss.IssueUser(account, userPub,
 
 ### Issue options
 
-`IssueOption` values customize a minted token. The identity issuers
+`IssueOption` values customize an issued token. The identity issuers
 (`IssueOperator`, `IssueAccount`, `IssueUser`) share these:
 
 - `WithName(string)` labels the entity (the token's `name`). An unnamed
@@ -120,7 +120,7 @@ The `examples/minter` command in the repository is a complete,
 manifest-driven credential minter built on these APIs. For issuer-side
 credential management as a standalone tool rather than library code, the valiss
 CLI (early development) will keep operator keys and tokens in an encrypted
-per-operator store and run minting and creds export from there; its commands
+per-operator store and run issuance and creds export from there; its commands
 are designed but every one is currently a stub, so today issuance is the
 `Issue*` calls above or `examples/minter`.
 
@@ -309,7 +309,7 @@ verifier := valiss.NewVerifier(operatorPub, allowlist,
 	valiss.WithOperatorToken(opToken))
 ```
 
-Bumping the epoch and re-minting rotates the whole domain at once: every
+Bumping the epoch and re-issuing rotates the whole domain at once: every
 token from an earlier epoch is rejected cryptographically, with no allowlist
 edits. The operator token's own `exp` bounds the entire domain. The pinned
 public key remains the trust anchor; the operator token only carries policy
@@ -333,7 +333,7 @@ type queryFilters struct {
 func (queryFilters) ExtensionName() string { return "example.filters" }
 ```
 
-Embed it at mint time with `valiss.WithExtension(queryFilters{...})` and read
+Embed it at issue time with `valiss.WithExtension(queryFilters{...})` and read
 it back in a handler with `valiss.ExtOf[queryFilters](id.Account.Ext)`, which
 returns the value, an `ok` bool, and a decode error. Extensions on both
 chain levels are enforced together, so an account-level grant bounds all of
@@ -374,7 +374,7 @@ valiss.WithExtension(grpcauth.Ext{
 
 An empty `Methods` list grants nothing; allow-all is the explicit `"*"`.
 
-Enforcement in both transports is fail-closed: every token in the chain must
+Enforcement in both transports fails closed: every token in the chain must
 carry the extension, or the request is denied. Pass `AllowMissingExtension()`
 to the middleware only when authorization is handled entirely outside the
 transport.
@@ -494,7 +494,7 @@ Runnable end-to-end programs for both are in `examples/ginauth` and
 
 A service that emits artifacts to third parties (webhooks, queue messages,
 exported documents) can extend the chain one level further with message
-tokens: a short-lived token minted with a user key, one per emitted message,
+tokens: a short-lived token issued with a user key, one per emitted message,
 that any receiver verifies offline knowing only the operator public key. A
 message token binds the destination (`aud`), the exact payload bytes (a
 SHA-256 checksum), a short window, and the epoch.

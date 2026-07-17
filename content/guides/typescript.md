@@ -4,7 +4,7 @@ weight: 3
 ---
 
 `valiss-ts` is the TypeScript/JavaScript implementation of the valiss scheme:
-Ed25519 nkeys, token mint and verify, credentials files, request signatures, and
+Ed25519 nkeys, token issue and verify, credentials files, request signatures, and
 offline message-token verification. It implements wire spec 1 and is
 byte-for-byte wire-compatible with the Go reference and the Python port.
 
@@ -103,7 +103,7 @@ the wire carries and the method and path must match exactly. The signature binds
 the context: a captured signature cannot authorize a different method or path.
 Build a fresh signature per request.
 
-For a server with a replay cache, mint a nonce, append it as the last context
+For a server with a replay cache, generate a nonce, append it as the last context
 field, and send it in the `valiss-nonce` header:
 
 ```ts

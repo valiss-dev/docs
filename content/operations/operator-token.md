@@ -109,7 +109,7 @@ that gap is discovered at the worst possible moment.
 
 ## What is manual today
 
-Issuing an operator token is programmatic only. The `minter` example mints
+Issuing an operator token is programmatic only. The `minter` example issues
 account and user credentials; it does not produce operator tokens. Renewal and
 emergency recovery are hand-written `IssueOperator` calls against the library,
 with hand-maintained keyring rebuilds and distribution. The planned valiss CLI,

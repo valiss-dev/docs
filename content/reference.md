@@ -76,7 +76,7 @@ All under the [valiss-dev](https://github.com/valiss-dev) GitHub organization:
 - [valiss-go](https://github.com/valiss-dev/valiss-go) - the Go reference
   implementation and the source of truth for the scheme.
 - [valiss-py](https://github.com/valiss-dev/valiss-py) - the Python port: creds,
-  mint, sign, verify, plus the Django and ASGI integrations.
+  issue, sign, verify, plus the Django and ASGI integrations.
 - [valiss-ts](https://github.com/valiss-dev/valiss-ts) - the
   TypeScript/JavaScript port of the core wire layer.
 - [valiss-cli](https://github.com/valiss-dev/valiss-cli) - the planned
