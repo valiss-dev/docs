@@ -87,8 +87,10 @@ The deeper material: exact rules, guarantees, and compatibility.
   the protection ends.
 - [Versioning and compatibility](/docs/versioning/): the wire-spec and library
   version axes, and how cross-language interop is gated.
+- [Troubleshooting](/docs/faq/): every verification rejection mapped from the
+  symptom you see back to the cause the verifier decided.
 
 The Go library (`valiss.dev/valiss`) is the canonical implementation and is
-where the quickstart and the reference guide live today. Verification is a few
-hundred lines of standard Ed25519 plus JSON, so consumers in other languages
-port the verifier rather than depend on Go.
+where the quickstart and the reference guide live today. Other languages do not
+depend on Go: Python is a full client library at parity, and TypeScript
+currently ships the verification and signing primitives.
