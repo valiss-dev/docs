@@ -1,6 +1,7 @@
 ---
 title: Project status and support
 weight: 8
+description: "Where valiss stands in its lifecycle: what each implementation ships today, what is planned, and how support works."
 ---
 
 This page states plainly where valiss is in its lifecycle, what each

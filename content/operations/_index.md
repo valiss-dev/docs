@@ -20,17 +20,14 @@ These pages say what that work is and how to do it safely:
 - **[Monitoring](monitoring/)** is what to watch and why. The library emits no
   metrics or logs, so the signals are yours to build. Each one is framed as a
   benign cause and the attack it could also indicate.
-- **Rotation ceremony** is the step-by-step for advancing an epoch: re-issuing
-  the operator token, re-minting beneath it, and using the keyring grace overlap
-  so no request is refused mid-ceremony.
-- **Allowlist distribution** is getting the accepted-id set to every verifier:
-  stamping a version, pushing it out, and confirming the fleet converged.
-- **Credential renewal** is keeping account and user credentials fresh before
-  their expiry closes them, without a re-issue stampede.
-- **Seed custody and recovery** is where the private keys live, how they are
-  backed up, and what re-pinning the trust anchor costs when the operator seed
-  is lost or exposed.
-
-Rotation ceremony, allowlist distribution, credential renewal, and seed custody
-and recovery are being written alongside this page; start with hardening and
-monitoring.
+- **[Rotation ceremony](rotation-ceremony/)** is the step-by-step for advancing
+  an epoch: re-issuing the operator token, re-minting beneath it, and using the
+  keyring grace overlap so no request is refused mid-ceremony.
+- **[Allowlist distribution](allowlist-distribution/)** is getting the
+  accepted-id set to every verifier: stamping a version, pushing it out, and
+  confirming the fleet converged.
+- **[Credential renewal](credential-renewal/)** is keeping account and user
+  credentials fresh before their expiry closes them, without a re-issue stampede.
+- **[Seed custody and recovery](seed-custody/)** is where the private keys live,
+  how they are backed up, and what re-pinning the trust anchor costs when the
+  operator seed is lost or exposed.

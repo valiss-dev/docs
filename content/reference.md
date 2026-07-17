@@ -1,6 +1,7 @@
 ---
 title: Reference
 weight: 10
+description: "The map to the Go API docs, the wire specification, and the conformance vectors."
 ---
 
 The [Concepts](/docs/concepts/) and [Guides](/docs/guides/) explain the model

@@ -1,6 +1,7 @@
 ---
 title: Versioning and compatibility
 weight: 6
+description: "The wire-spec and library version axes, and how cross-language interoperability is gated by the conformance vectors."
 ---
 
 valiss is a multi-language framework, and its whole value is that a credential

@@ -80,7 +80,7 @@ domain is closed": not a subset, everything. This is the one setting whose lapse
 is a full outage rather than a partial denial.
 
 Monitor its `exp` with a lead time longer than a rotation takes, and re-issue
-before it lands. The keyring is what makes the changeover seamless: it holds
+before it lands. The keyring is what makes the changeover gap-free: it holds
 several epochs for one operator key at once, so you register the new-epoch token
 alongside the old one and let producers re-mint at their own pace, dropping the
 old entry only after the grace overlap. Never let the only trusted operator
