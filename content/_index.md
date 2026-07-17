@@ -2,8 +2,6 @@
 title: valiss
 ---
 
-# valiss
-
 Decentralized tenant authentication for services, built on a three-level
 chain of Ed25519 keys: operator, account, user. Verification is offline.
 There is no auth service to run, no token introspection endpoint to call,
