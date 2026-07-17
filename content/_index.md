@@ -59,17 +59,34 @@ The model, one page each.
   carried on the token.
 - [Rotation](/docs/concepts/rotation/): epochs and operator tokens for mass
   revocation of a whole trust domain.
+- [Messages](/docs/concepts/messages/): message tokens, offline proof of origin
+  for artifacts that travel on their own.
+- [Creds](/docs/concepts/creds/): the credentials file, a client's tokens and
+  signing seed packaged together.
 
 ### Guides
 
 Wiring valiss into real code.
 
 - [Go](/docs/guides/go/): the reference implementation, gRPC and HTTP.
-- [Python](/docs/guides/python/): verifying valiss credentials from Python.
-- [TypeScript](/docs/guides/typescript/): verifying valiss credentials from
-  TypeScript.
+- [Python](/docs/guides/python/): the Python client, mint tokens, sign httpx and
+  requests calls, and verify server-side at parity with Go.
+- [TypeScript](/docs/guides/typescript/): the TypeScript port, sign and verify
+  primitives installed from source, with no transport adapter or integrated
+  verifier yet.
 - [Verifying credentials offline](/docs/guides/verifying/): the language-neutral
   verification recipe for porting to any runtime.
+
+### Reference
+
+The deeper material: exact rules, guarantees, and compatibility.
+
+- [Reference](/docs/reference/): the map to the Go API docs, wire specification,
+  and conformance vectors.
+- [Security model](/docs/security/): what the offline model protects, and where
+  the protection ends.
+- [Versioning and compatibility](/docs/versioning/): the wire-spec and library
+  version axes, and how cross-language interop is gated.
 
 The Go library (`valiss.dev/valiss`) is the canonical implementation and is
 where the quickstart and the reference guide live today. Verification is a few

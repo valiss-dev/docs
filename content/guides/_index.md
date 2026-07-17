@@ -17,8 +17,10 @@ Start with the guide for your stack:
 
 - [Go](go.md) - install the module, issue tokens, verify requests
   server-side, and wire the HTTP, gRPC, Gin, and Echo integrations.
-- Django - server-side verification for Django projects.
-- ASGI - FastAPI, Starlette, Litestar, and Quart.
+- [Python](python.md) - the Python client: load credentials, sign httpx and
+  requests calls, and verify tokens and requests server-side.
+- [TypeScript](typescript.md) - the TypeScript port: sign and verify
+  primitives, installed from source, with transport adapters still to come.
 - [Verifying tokens](verifying.md) - the offline decode-and-verify recipe,
   and the porting reference for implementing verification in another
   language.

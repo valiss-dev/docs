@@ -363,14 +363,14 @@ local tunnel.
 
 Frameworks with their own handler and context types get dedicated adapters
 that expose the verified identity through the native context and use native
-abort semantics. Per [ADR 0014](../../adr/0014-go-framework-integration-targets.md),
+abort semantics. Per [ADR 0014](https://github.com/valiss-dev/docs/blob/main/adr/0014-go-framework-integration-targets.md),
 targets are selected by GitHub stars and shipped effort-class first; the
 first wave is Gin and Echo. Every adapter wraps `httpauth`'s verification
 core (`httpauth.Authenticate`) rather than reimplementing it, so the HTTP
 extension and all verifier options behave identically. The client side stays
 framework-agnostic: use `httpauth.NewTransport`.
 
-Adapters follow a naming split ([ADR 0015](../../adr/0015-contrib-auth-sig-separation.md)):
+Adapters follow a naming split ([ADR 0015](https://github.com/valiss-dev/docs/blob/main/adr/0015-contrib-auth-sig-separation.md)):
 `<framework>auth` packages carry credential authentication and grant an
 identity (`IdentityFrom`); `<framework>sig` packages carry message-token
 verification and grant no identity (`MessageFrom`). Protection on a route is
