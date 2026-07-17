@@ -2,7 +2,7 @@
 title: Documentation
 ---
 
-valiss is decentralized tenant authentication for services, built on a
+valiss is offline tenant authentication for services, built on a
 three-level chain of Ed25519 keys:
 [operator, account, user](/docs/concepts/entities/). Verification is
 offline against a single pinned public key, so there is no auth service to run,
