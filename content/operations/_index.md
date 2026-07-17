@@ -1,7 +1,7 @@
 ---
 title: Operations
 weight: 4
-description: "Running valiss in production: the pre-production hardening checklist, what to monitor and why, and the operator ceremonies for rotation, allowlist distribution, credential renewal, and seed custody."
+description: "Running valiss in production: the pre-production hardening checklist, what to monitor and why, and the operator runbooks for rotation, the operator token lifecycle, emergency revocation, allowlist distribution, credential renewal, and seed custody."
 ---
 
 The [Concepts](/docs/concepts/) explain the model and [Security](/docs/security/)
@@ -23,6 +23,12 @@ These pages say what that work is and how to do it safely:
 - **[Rotation ceremony](rotation-ceremony/)** is the step-by-step for advancing
   an epoch: re-issuing the operator token, re-minting beneath it, and using the
   keyring grace overlap so no request is refused mid-ceremony.
+- **[Operator token lifecycle](operator-token/)** is the runbook for the token's
+  fields, above all its validity window: what the operator token asserts, and how
+  to keep its expiry from taking the whole domain down at once.
+- **[Emergency revocation](emergency-revocation/)** is the decision runbook for a
+  leak: find the scenario by blast radius and reach for the right lever, from the
+  allowlist through epoch rotation to re-pinning the trust anchor.
 - **[Allowlist distribution](allowlist-distribution/)** is getting the
   accepted-id set to every verifier: stamping a version, pushing it out, and
   confirming the fleet converged.
