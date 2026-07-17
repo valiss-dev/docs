@@ -184,11 +184,16 @@ extraction and status-code mapping, so a handler only ever sees an authenticated
 request; see the package README for those.
 
 `ALLOW_ALL` accepts any account id (for development or when revocation is handled
-elsewhere). For a service that trusts several operators, build the verifier with
-`Verifier.with_keyring(Keyring(*operator_tokens), allowlist)`; the credential's
-account token names the trust domain. Pass `operator_token=` to enforce the
-trust domain's epoch and validity window, and `resolver=` (a callable or a
-`{account_pub: token}` mapping) to accept user-only credentials.
+elsewhere). The allowlist is a protocol tested with `in`, so any container of ids
+works in place of `StaticAllowlist`, including a database-backed object that reads
+your own revocation store. For a service that trusts several operators, build the
+verifier with `Verifier.with_keyring(Keyring(*operator_tokens), allowlist)`; the
+credential's account token names the trust domain. Pass `operator_token=` to
+enforce the trust domain's epoch and validity window, and `resolver=` (a callable
+or a `{account_pub: token}` mapping) to accept user-only credentials.
+`replay_cache=` likewise takes any `ReplayCache` implementation, so back the
+process-local `MemoryReplayCache` with Redis or a database for exactly-once
+suppression across instances.
 
 ### Custom checks
 
