@@ -15,8 +15,10 @@ the [Security model](/docs/security/); here they are turned into actions.
 
 Every allowlist-based step below shares one limit, so state it once. A verifier
 enforces its own local copy of the allowlist. There is no central push. An id
-you remove is still accepted on any server that has not yet reloaded its list
-(`LoadAllowlistFile` and reload on change). Revocation lands only when the
+you remove is still accepted on any server that has not yet reloaded its list.
+`LoadAllowlistFile` reads the file once and installs no watcher, so each server
+reloads only when you make it (a file watch, SIGHUP, or a poll interval calling
+`Set`). Revocation lands only when the
 slowest server reloads, so "revoked" means revoked on the servers that have
 converged, and the tenant is not actually cut off until the last one has. Treat
 every "remove from the allowlist" instruction as "remove and confirm the fleet
