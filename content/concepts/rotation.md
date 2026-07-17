@@ -40,6 +40,11 @@ and every token from an earlier epoch is rejected on its next use. No allowlist
 edits, no per-tenant work, no waiting for old tokens to expire. One counter
 advance retires the entire generation of credentials beneath it.
 
+Driving this ceremony is issuer-side work: the valiss CLI (early development)
+holds the operator identity in its per-operator store and rolls it forward with
+`operator rotate`, re-issuing beneath it rather than re-minting each token by
+hand.
+
 The operator token's own `exp` bounds the whole domain: once it lapses, nothing
 in the domain verifies until a fresh operator token is published, which forces a
 periodic rotation ceremony rather than letting a domain drift indefinitely on

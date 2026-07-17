@@ -30,16 +30,17 @@ file, and its holder can *be* the subject; the tokens beside it are public
 artifacts that give nothing away.
 
 The issuer is the one custodian valiss treats as special, and the rule there is
-firm: the operator seed never touches production. It lives with the issuer in a
-secrets manager and comes out only to sign new credentials (see the
-[security model](../security.md) on operator-seed custody). The
-[`examples/minter`](https://valiss.dev/valiss) tool shows the shape of doing
-this well. It is stateless: key pairs are printed once and never stored, and
-signing seeds are supplied through the environment rather than held by the
-tool, so the seed's custodian is the secrets manager, not the process that
-signs. That out-of-process separation, the thing that holds the seed kept
-distinct from the thing that uses it, is custodianship done properly with
-today's parts.
+firm: the operator seed never touches production. It lives with the issuer and
+comes out only to sign new credentials (see the [security model](../security.md)
+on operator-seed custody). The **valiss CLI** (early development) is the
+issuer-side tool for exactly this custody: an operator's keys and tokens live in
+its encrypted per-operator store, and minting and [creds export](creds.md) run
+from there. Keeping the store that holds the seeds distinct from the services
+that only ever consume the creds it exports is the out-of-process separation
+that makes custodianship proper with today's parts. The Go library exposes the
+same minting primitives directly for programmatic issuance, and `valiss-go`'s
+`examples/minter` is a minimal illustration of driving them out of process,
+resolving seeds from the environment rather than holding them.
 
 ## The gap custody leaves
 

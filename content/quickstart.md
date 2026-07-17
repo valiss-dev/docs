@@ -174,6 +174,11 @@ resolving seeds from the environment, and writes a creds file the client loads
 with `creds.Load`. The server side is unchanged: it still pins the operator
 public key and consults the allowlist.
 
+The valiss CLI (early development) is the issuer-side counterpart to this
+in-process minting: it keeps operator keys and tokens in an encrypted
+per-operator store and runs minting and creds export from there, so an operator
+issues credentials without writing Go.
+
 ## Next steps
 
 - [Entities](/docs/concepts/entities/) and [Tokens](/docs/concepts/tokens/):

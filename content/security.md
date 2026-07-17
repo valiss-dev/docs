@@ -189,7 +189,9 @@ with that two-minute grace in mind.
   Use TLS for that, and to protect bearer tokens in transit.
 - **Key custody is yours.** The model's security rests on seeds staying secret.
   Storing and distributing them is the issuer's responsibility and outside the
-  library.
+  library. The valiss CLI (early development) is the issuer-side tool being built
+  for that custody, holding keys and tokens in an encrypted per-operator store;
+  see [Custodianship](/docs/concepts/custodianship/).
 - **Never authorize on names.** A token's `name` is an issuer-asserted label,
   not checked for uniqueness and free to collide across operators. Key
   authorization decisions on public keys and extensions, not on names. See

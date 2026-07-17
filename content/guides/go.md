@@ -117,7 +117,10 @@ token when the server resolves it (see
 [Account token resolution](#user-only-credentials)); a bundle embeds it.
 
 The `examples/minter` command in the repository is a complete,
-manifest-driven credential minter built on these APIs.
+manifest-driven credential minter built on these APIs. For issuer-side
+credential management as a standalone tool rather than library code, the valiss
+CLI (early development) keeps operator keys and tokens in an encrypted
+per-operator store and runs minting and creds export from there.
 
 ## Server-side verification
 

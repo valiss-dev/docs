@@ -55,6 +55,11 @@ Two consequences matter in practice:
   allowlist keys that cannot collide between operators (see
   [Allowlist](allowlist.md)).
 
+The valiss CLI (early development) exposes this reproducibility as `inspect`: an
+offline decode of any token that prints its claims and derived id without
+evaluating trust, the quick way to see what a token carries and confirm its
+`jti`.
+
 Reproducing a `jti` byte-for-byte across languages requires reproducing the
 exact JSON serialization the reference implementation uses (field order, no
 insignificant whitespace, and Go's HTML-style escaping of `<`, `>`, and `&`). A

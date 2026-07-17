@@ -42,6 +42,11 @@ set atomically (for example after reloading a file) with `Set`.
 allowlist.Set(currentAccountIDs) // reload after an issuer change
 ```
 
+On the issuer side, the valiss CLI (early development) keeps the allowlist as a
+first-class object alongside the tokens it mints, and it exports the exact file
+a server loads, so deposits and revocations are issued from the same place as
+the tokens they gate.
+
 ## The list is an interface
 
 `StaticAllowlist` is a bundled implementation, not the model. The verifier
