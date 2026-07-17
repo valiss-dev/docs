@@ -1,5 +1,5 @@
 ---
-title: The allowlist
+title: Allowlist
 weight: 3
 ---
 
