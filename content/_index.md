@@ -1,5 +1,5 @@
 ---
-title: valiss
+title: Documentation
 ---
 
 valiss is decentralized tenant authentication for services, built on a
