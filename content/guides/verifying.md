@@ -142,8 +142,11 @@ payload bytes:
    messages, that is the instant of receipt, not now.
 8. If the token carries `aud`, require it to equal the destination you are
    verifying for. Reject tokens without `aud` if you expect one.
-9. Require `valiss.checksum` to equal the lowercase-hex SHA-256 of the payload
-   exactly as received.
+9. If you require payload binding, hash the payload exactly as received and
+   require `valiss.checksum` to equal its lowercase-hex SHA-256, rejecting a
+   token that carries no checksum. Checksum verification is receiver-opt-in (the
+   Go transports gate it behind `WithPayload`/`RequireChecksum`); a receiver that
+   does not ask for it leaves the claim unchecked.
 
 A verified message token proves origin only. It is not a credential: grant
 nothing for possession of one. Offline receivers hold no allowlist; an online

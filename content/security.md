@@ -149,18 +149,30 @@ subtlety is worth internalizing: an empty dimension imposes no restriction, so
 surface you must name every dimension you mean to bound. A deployment that
 authorizes entirely outside the transport can opt out with
 `AllowMissingExtension`, but that is a deliberate choice, not an accident.
-Enforcement also compounds down the chain, so an account-level extension caps
-every user the account mints.
+Enforcement also compounds down the chain, and does so at verify time: issuance
+runs no subset check, so a user token may name broader bounds than its account,
+but the verifier authorizes only when every level permits the request (an AND
+across the chain), which caps every user at the account's bounds.
 
 The verifier applies these in a fixed order and reports a precise reason:
-chain signatures, then epoch and validity windows, then the allowlist, then
-proof of possession, then extension checks, then custom validators.
+chain signatures, then the operator policy (its validity window and epoch match)
+when an operator token or keyring is configured, then account and user validity
+windows, then the allowlist, then proof of possession, then extension checks,
+then custom validators.
+
+Epoch enforcement on the request path is conditional. A bare
+`NewVerifier(operatorPub, allowlist)` pins the anchor and enforces the allowlist
+but never compares epochs, so epochs bind requests only once you configure an
+operator token (`WithOperatorToken`) or a keyring. Message verification does not
+share that gap: `VerifyMessage` always requires the chain's tokens to agree on
+their epoch, and additionally binds them to the domain epoch when you pass an
+operator policy.
 
 Each gate fails closed to a denial:
 
 ```mermaid
 flowchart TD
-    S["Account token signature<br/>vs pinned operator key"] --> P["Operator policy:<br/>token window + epoch match"]
+    S["Account token signature<br/>vs pinned operator key"] --> P["Operator policy (when configured):<br/>token window + epoch match"]
     P --> AV["Account token<br/>expiry and not-before"]
     AV --> AL["Allowlist:<br/>account jti present"]
     AL --> UT["User token, if present:<br/>signature vs account key,<br/>epoch, expiry"]
@@ -188,8 +200,11 @@ Revocation without an issuer to call is bounded, and the boundaries matter.
   to have expired.
 - **Reach is local to each verifier's copy of the list.** There is no central
   push. A revocation takes effect on a given server only once that server's
-  allowlist is updated and reloaded (`LoadAllowlistFile` and reload on change).
-  Revocation is as prompt as your distribution of the list, no more.
+  allowlist is updated and reloaded. `LoadAllowlistFile` reads the file once and
+  ships no watcher, so the caller wires the reload (a file watch, SIGHUP, or a
+  poll interval) and applies it with `Set` on the retained allowlist; see the
+  [Go guide](/docs/guides/go/#the-allowlist). Revocation is as prompt as your
+  distribution of the list, no more.
 - **The allowlist keys accounts, not users.** There is no per-user allowlist
   entry, so you cannot revoke a single user through the allowlist without
   revoking its account. To cut off one user, let its (short) TTL lapse, or
@@ -212,16 +227,21 @@ with that two-minute grace in mind.
 - **Key custody is yours.** The model's security rests on seeds staying secret.
   Storing and distributing them is the issuer's responsibility and outside the
   library. The valiss CLI (early development) is the issuer-side tool being built
-  for that custody, holding keys and tokens in an encrypted per-operator store;
-  see [Custody](/docs/concepts/custody/).
+  for that custody: it will hold keys and tokens in an encrypted per-operator
+  store, though its commands are designed and not yet runnable (every one is a
+  stub today). For now that custody is arranged from the parts valiss ships,
+  keeping seeds in a secrets manager and minting through the library or
+  `examples/minter`; see [Custody](/docs/concepts/custody/).
 - **Never authorize on names.** A token's `name` is an issuer-asserted label,
   not checked for uniqueness and free to collide across operators. Key
   authorization decisions on public keys and extensions, not on names. See
   [Entities](/docs/concepts/entities/).
-- **The nkey role prevents cross-level confusion.** Because the key role travels
-  in the key material, a verifier checks at every hop that an operator key signed
-  the account token and an account key signed the user token. A user key
-  masquerading as an account cannot even be expressed.
+- **The verifier's per-hop role check prevents cross-level confusion.** Any
+  public key re-encodes under any role prefix with a valid checksum, so the nkey
+  encoding alone does not stop a user key from being written as an account nkey.
+  What stops it is the verifier: at every hop it requires the `iss` and `sub` to
+  carry the role that position demands, and the signature chain must hold. A user
+  key offered in an account slot is rejected there, not made unrepresentable.
 
 ## Where to go next
 

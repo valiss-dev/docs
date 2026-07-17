@@ -21,9 +21,9 @@ allowlist := valiss.NewStaticAllowlist(acmeAccountJTI, globexAccountJTI)
 verifier := valiss.NewVerifier(operatorPub, allowlist)
 ```
 
-Because account token ids are content hashes (see [Tokens](tokens.md)), they are
-globally unique and cannot collide between operators, so one allowlist can back
-several trust domains at once without ambiguity.
+Because account token ids are SHA-256 content hashes (see [Tokens](tokens.md)),
+two distinct tokens yield the same id only with negligible probability, so one
+allowlist can back several trust domains at once without practical ambiguity.
 
 There is a development-only `valiss.AllowAll` that accepts every id. It exists
 for local work where maintaining a list is friction you do not want yet. It
@@ -42,10 +42,12 @@ set atomically (for example after reloading a file) with `Set`.
 allowlist.Set(currentAccountIDs) // reload after an issuer change
 ```
 
-On the issuer side, the valiss CLI (early development) keeps the allowlist as a
-first-class object alongside the tokens it mints, and it exports the exact file
-a server loads, so deposits and revocations are issued from the same place as
-the tokens they gate.
+On the issuer side, the valiss CLI (early development) is designed to keep the
+allowlist as a first-class object alongside the tokens it mints, exporting the
+exact file a server loads so deposits and revocations issue from the same place
+as the tokens they gate. Those commands are stubs today, so for now the
+allowlist file is hand-maintained: `examples/minter` prints each account
+token's `jti`, and you add or remove that line yourself.
 
 ## The list is an interface
 

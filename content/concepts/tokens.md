@@ -48,17 +48,24 @@ encode the digest as base32. The result is a stable 52-character identifier.
 Two consequences matter in practice:
 
 - **The id is reproducible.** Anyone who can see a token can recompute its
-  `jti` and confirm the id was not tampered with. Nothing needs to look it up.
+  `jti` from the payload and check that it matches. Because SHA-256 is
+  second-preimage resistant, no different set of claims realistically hashes to
+  the same id, so a matching `jti` was computed from exactly these claims. This
+  is a consistency check, not the integrity boundary: what actually detects
+  tampering is the signature, since altered claims break the operator's or
+  account's signature over them.
 - **Identical claims yield an identical id.** Re-issuing a token with the same
   contents produces the same `jti`, which is what lets keyrings and allowlists
-  deduplicate by id, and what lets account token ids serve as globally unique
-  allowlist keys that cannot collide between operators (see
+  deduplicate by id, and what lets account token ids serve as allowlist keys
+  collision-resistant enough to share one list across operators (see
   [Allowlist](allowlist.md)).
 
-The valiss CLI (early development) exposes this reproducibility as `inspect`: an
-offline decode of any token that prints its claims and derived id without
-evaluating trust, the quick way to see what a token carries and confirm its
-`jti`.
+The valiss CLI (early development) is designed to expose this reproducibility as
+`inspect`: an offline decode of any token that prints its claims and derived id
+without evaluating trust, the quick way to see what a token carries and confirm
+its `jti`. That command is not yet runnable (a stub today); until it lands, the
+library's `valiss.Decode` does the same untrusted decode from any token, and
+`examples/minter` prints a minted token's `jti` as metadata.
 
 Reproducing a `jti` byte-for-byte across languages requires reproducing the
 exact JSON serialization the reference implementation uses (field order, no

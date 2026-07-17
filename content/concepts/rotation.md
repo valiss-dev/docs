@@ -32,6 +32,15 @@ epoch 3, an account or user token stamped epoch 2 is rejected. The check is
 cryptographic and needs no external state: the epoch is a signed claim, and the
 verifier simply compares.
 
+Two honesty notes. On the request path the epoch is enforced only when the
+verifier holds an operator token or keyring; a bare
+`NewVerifier(operatorPub, allowlist)` pins the anchor and checks the allowlist
+but never compares epochs, so unstamped or stale-epoch credentials pass until
+you configure a policy. Message verification has no such gap: `VerifyMessage`
+always requires the chain's account, user, and message tokens to agree on their
+epoch, and additionally binds them to the domain epoch when you supply an
+operator policy.
+
 ## Rotating a whole domain at once
 
 To rotate the trust domain, bump the operator's epoch and re-mint. Publish an
@@ -40,10 +49,12 @@ and every token from an earlier epoch is rejected on its next use. No allowlist
 edits, no per-tenant work, no waiting for old tokens to expire. One counter
 advance retires the entire generation of credentials beneath it.
 
-Driving this ceremony is issuer-side work: the valiss CLI (early development)
-holds the operator identity in its per-operator store and rolls it forward with
-`operator rotate`, re-issuing beneath it rather than re-minting each token by
-hand.
+Driving this ceremony is issuer-side work. The valiss CLI (early development) is
+designed to hold the operator identity in its per-operator store and roll it
+forward with `operator rotate`, re-issuing beneath it rather than re-minting
+each token by hand; that command is not yet runnable (a stub today). Until it
+lands, the ceremony is the library issuance calls (`IssueOperator` at the new
+epoch, then `IssueAccount`/`IssueUser` beneath it) or `examples/minter`.
 
 The operator token's own `exp` bounds the whole domain: once it lapses, nothing
 in the domain verifies until a fresh operator token is published, which forces a

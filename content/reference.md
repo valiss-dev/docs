@@ -62,10 +62,11 @@ identity (they expose `MessageFrom`, not an authenticated identity):
 ## Conformance vectors
 
 - [Conformance vectors](https://github.com/valiss-dev/spec/tree/main/vectors) -
-  language-neutral, verify-side test vectors frozen with spec 1 (`keys`,
-  `tokens`, `messages`, `signatures`, `creds`). An implementation conforms if it
-  runs every vector and gets the expected outcome, so a port checks itself
-  against these rather than against the Go library directly.
+  language-neutral, verify-side test vectors frozen with spec 1; each JSON file
+  in the linked corpus pairs its artifacts with their expected verification
+  outcome. An implementation conforms if it runs every vector and gets the
+  expected outcome, so a port checks itself against these rather than against the
+  Go library directly.
 
 ## Repositories
 

@@ -18,8 +18,11 @@ cross-library compatibility is gated in practice.
 - **The spec version** identifies the wire format and verification rules. It is
   independent of any library's version, and an implementation advertises the
   spec version or versions it implements (`spec: 1`). Backward compatibility
-  within a spec version is permanent: a verifier that implements spec 1 verifies
-  any spec-1 credential for all time.
+  within a spec version is permanent: a verifier that implements spec 1 can
+  always parse and check any spec-1 credential, for all time. That is a format
+  guarantee, not a verdict: whether a given credential then passes is a separate
+  question of validity windows, allowlist membership, and epoch, which the format
+  guarantee says nothing about.
 - **The library version** is each implementation's own semantic version, moving
   at its own pace. valiss-go, the reference implementation, is at v0.13.x. A
   library upgrade that does not touch the spec still interoperates, and that is

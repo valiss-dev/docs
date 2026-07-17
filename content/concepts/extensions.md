@@ -77,8 +77,12 @@ A deployment that authorizes entirely outside the transport can opt out with
 `AllowMissingExtension()`, but that is a deliberate choice, not an accident of
 an unset field.
 
-Enforcement also compounds down the chain. An extension present on both the
-account and the user token is enforced at both levels, so an account-scoped
-extension bounds every user the account mints. A tenant can therefore be handed
-an account credential that already caps what any of its users can reach, and the
-tenant cannot mint a user that exceeds that cap.
+Enforcement also compounds down the chain, and it is a verify-time property, not
+a mint-time one. `IssueUser` runs no subset check: an account can mint a user
+token whose extension names broader bounds than the account's own. What contains
+it is verification. When both the account and the user token carry the
+extension, the verifier authorizes a request only if every level permits it (an
+AND across the chain), so the effective grant is the intersection. A user token
+that claims more than its account is simply capped at the account's bounds when
+verified, and a tenant handed a capped account credential cannot exceed that cap
+no matter what it mints.

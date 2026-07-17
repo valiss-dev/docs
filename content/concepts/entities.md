@@ -50,9 +50,14 @@ seeds render with a recognizable leading letter:
 
 Because the role travels with the key, a verifier can check at every hop of the
 chain that an operator key signed the account token, an account key signed the
-user token, and so on, from the key material alone. A whole class of
-cross-level confusion (a user key masquerading as an account, say) cannot even
-be expressed. The checksum also makes the encoding copy-paste-safe for the
+user token, and so on, from the key material alone. The role prefix is not by
+itself a barrier: the same 32-byte public key re-encodes under any role prefix
+with a valid checksum, so a user key can be *written* as an account nkey. What
+rules out cross-level confusion (a user key presented where an account key
+belongs) is the verifier's per-hop role check, which requires each `iss` and
+`sub` to carry the role its position in the chain demands, backed by the
+signature chain that must hold at every hop. The checksum also makes the
+encoding copy-paste-safe for the
 places keys actually live: config files, environment variables, and CLI flags.
 A corrupted key fails to parse rather than failing verification in some
 confusing way later.
