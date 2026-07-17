@@ -3,8 +3,6 @@ title: TypeScript
 weight: 3
 ---
 
-# TypeScript integration
-
 `valiss-ts` is the TypeScript/JavaScript implementation of the valiss scheme:
 Ed25519 nkeys, token mint and verify, credentials files, request signatures, and
 offline message-token verification. It implements wire spec 1 and is

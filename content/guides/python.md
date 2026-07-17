@@ -3,8 +3,6 @@ title: Python
 weight: 2
 ---
 
-# Python integration
-
 `valiss` is the Python client for the valiss scheme: it parses credentials
 files, mints short-lived tokens, signs HTTP and gRPC requests, and verifies
 them server-side without a round trip to the Go reference. It implements wire

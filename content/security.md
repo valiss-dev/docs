@@ -3,8 +3,6 @@ title: Security model
 weight: 5
 ---
 
-# Security model
-
 valiss verifies credentials offline against a single pinned public key. That is
 its strength and it is also the shape of its threat model: there is no issuer to
 consult at verification time, so what a server can and cannot defend against

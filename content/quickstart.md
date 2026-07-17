@@ -3,8 +3,6 @@ title: Quickstart
 weight: 1
 ---
 
-# Quickstart
-
 This walks the shortest working path with the Go library as it ships today:
 install it, create an operator, account, and user, mint their tokens, and
 verify a signed request server-side against the allowlist. Everything runs in

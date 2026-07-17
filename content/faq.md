@@ -3,8 +3,6 @@ title: Troubleshooting
 weight: 7
 ---
 
-# Troubleshooting
-
 valiss verification fails closed, and every rejection has one specific cause.
 This page maps the symptom you see (an HTTP status, a gRPC code, an error
 string) back to what the verifier decided and what to check. The strings quoted

@@ -3,8 +3,6 @@ title: Reference
 weight: 4
 ---
 
-# Reference
-
 The [Concepts](/docs/concepts/) and [Guides](/docs/guides/) explain the model
 and how to wire it in. This page is the map to the authoritative material
 underneath them: the Go API documentation, the wire specification, the

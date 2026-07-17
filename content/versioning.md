@@ -3,8 +3,6 @@ title: Versioning and compatibility
 weight: 6
 ---
 
-# Versioning and compatibility
-
 valiss is a multi-language framework, and its whole value is that a credential
 minted by one implementation verifies in every other. That guarantee rests on
 keeping two different things versioned separately: the **wire specification**
