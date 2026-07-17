@@ -52,7 +52,12 @@ The `valiss` section is discriminated by its `type` field:
   `chain` is `{account, user}`: the embedded provenance tokens, verbatim.
 
 `ext` is an object of named, consumer-defined claim payloads; transport
-carries them opaquely.
+carries them opaquely. The registry of names is open: a verifier that does not
+recognize an extension name must carry it through untouched rather than reject
+it, so a port that ignores unknown extensions stays forward-compatible.
+Fail-closed decoding applies only to names a verifier explicitly opts to check;
+under those, a present entry that does not match the expected shape rejects the
+token.
 
 ## Signature
 
@@ -143,7 +148,9 @@ payload bytes:
 A verified message token proves origin only. It is not a credential: grant
 nothing for possession of one. Offline receivers hold no allowlist; an online
 receiver that wants revocation checks the chain account token's `jti` against
-its own allowlist.
+its own allowlist. The allowlist is a predicate over the `jti`, not a fixed
+data structure, so a port can back it with a file, a database, or a live policy
+call; see [Allowlist](../concepts/allowlist.md) for the shape of that seam.
 
 ## Verifying a request signature
 
@@ -169,7 +176,11 @@ A verifier that reconstructs v1 bytes fails closed on any other version.
 - HTTP: `"http\n" + method + "\n" + host + "\n" + path + "\n" + nonce`
 - gRPC: `"grpc\n" + full_method + "\n" + nonce`
 
-The nonce is empty when replay suppression is off. Verify the Ed25519
+The nonce is empty when replay suppression is off. Whether to suppress replay
+at all is left to the implementation, but the behavior is pinned once you do: a
+signed request must then carry a nonce, a nonce seen before is rejected, and an
+entry is retained for `2 * skew` (the longest a replay could still land inside a
+valid timestamp window). Verify the Ed25519
 signature against the effective subject key (the user token's `sub` when a
 chain is present, else the account token's `sub`) and bound the timestamp to a
 skew window around now.
