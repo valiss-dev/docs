@@ -27,13 +27,13 @@ through a library's semantic version.
 
 ## Implementation status
 
-| Component        | Language / repo        | Status                                                                     |
-| ---------------- | ---------------------- | -------------------------------------------------------------------------- |
-| Reference        | Go (valiss-go)         | Full. Source of truth for the scheme; issue, verify, transports, adapters. |
+| Component        | Language / repo        | Status                                                                      |
+| ---------------- | ---------------------- | --------------------------------------------------------------------------- |
+| Reference        | Go (valiss-go)         | Full. Source of truth for the scheme; issue, verify, transports, adapters.  |
 | Port             | Python (valiss-py)     | Full port: issue, sign, verify, plus Django and ASGI integrations. On PyPI. |
-| Core wire layer  | TypeScript (valiss-ts) | Sign and verify primitives only. Source-only, not published to npm.        |
-| Issuer CLI       | valiss-cli             | Designed and in active development. Not released.                          |
-| Custodian server | (none yet)             | Planned. Not implemented.                                                  |
+| Core wire layer  | TypeScript (valiss-ts) | Sign and verify primitives only. Source-only, not published to npm.         |
+| Issuer CLI       | valiss-cli             | Designed and in active development. Not released.                           |
+| Custodian server | (none yet)             | Planned. Not implemented.                                                   |
 
 The Go implementation is complete and canonical: where any other implementation
 disagrees with it, the Go source and the spec are right. The Python port is a

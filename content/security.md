@@ -62,9 +62,9 @@ The consequences differ sharply by what an attacker steals and at which level:
 | stolen         | what it grants                                                                                       |
 | -------------- | ---------------------------------------------------------------------------------------------------- |
 | operator token | nothing secret. It is a self-signed public policy statement (epoch, validity window).                |
-| operator seed  | full domain compromise. Issue any account, and any user beneath it. See the anchor section above.     |
+| operator seed  | full domain compromise. Issue any account, and any user beneath it. See the anchor section above.    |
 | account token  | nothing on a signing server. Account-level requests must always sign, so the token alone cannot act. |
-| account seed   | full tenant takeover: sign as the tenant and issue user tokens, bounded by the account's own scope.   |
+| account seed   | full tenant takeover: sign as the tenant and issue user tokens, bounded by the account's own scope.  |
 | user token     | nothing, unless it is a bearer token. A signed request still needs the user seed.                    |
 | user seed      | act as that user, within its bounds.                                                                 |
 | bearer token   | direct use as that user until the token expires or its account leaves the allowlist.                 |

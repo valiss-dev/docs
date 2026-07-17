@@ -33,7 +33,7 @@ The payload is a JSON object with RFC 7519 field names, all optional except
 | field    | meaning                                              |
 | -------- | ---------------------------------------------------- |
 | `jti`    | content-derived token id (see below)                 |
-| `iat`    | issue time, Unix seconds                              |
+| `iat`    | issue time, Unix seconds                             |
 | `iss`    | issuer public key, nkey-encoded                      |
 | `name`   | optional human label of the subject                  |
 | `sub`    | subject public key, nkey-encoded                     |
