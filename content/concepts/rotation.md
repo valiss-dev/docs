@@ -41,6 +41,12 @@ always requires the chain's account, user, and message tokens to agree on their
 epoch, and additionally binds them to the domain epoch when you supply an
 operator policy.
 
+> [!NOTE]
+> Request-path epoch checks apply only when the verifier holds an operator token
+> or a keyring. A bare `NewVerifier(operatorPub, allowlist)` never compares
+> epochs, so advancing the counter changes nothing there. Message verification
+> always checks epoch agreement.
+
 ## Rotating a whole domain at once
 
 To rotate the trust domain, bump the operator's epoch and re-issue. Publish an

@@ -38,6 +38,12 @@ do differs by an order of magnitude.
   so a seed passed that way through shared CI is a seed you should assume was
   captured.
 
+> [!CAUTION]
+> A seed passed through an environment variable (the `VALISS_SEED_<pubkey>`
+> convention) leaks into process listings, CI logs, and crash dumps far more
+> readily than a file read on demand. Assume a seed exposed to shared CI that
+> way was captured.
+
 ## Backing up the operator seed
 
 The operator seed is a single secret, 32 bytes of Ed25519 key material, and its
@@ -48,6 +54,12 @@ dies by attrition, each outstanding token still verifying until its own `exp`,
 with the operator token's `exp` bounding the whole domain past which nothing
 verifies at all ([Rotation](/docs/concepts/rotation/)). A slow, unstoppable
 shutdown is the shape of operator-seed loss.
+
+> [!WARNING]
+> Operator-seed loss is terminal: nothing regenerates it, so you can issue
+> nothing new and the domain dies by attrition until the operator token's `exp`
+> closes it entirely. An offline, durable backup made at generation time is
+> mandatory, not a nice-to-have.
 
 So an offline, durable backup of the operator seed, made at generation time, is
 mandatory, not a nice-to-have. For a high-value operator the mature posture is to

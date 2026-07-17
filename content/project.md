@@ -43,6 +43,11 @@ it is not published to a registry. The CLI is designed and under development but
 has not been released. There is no custodian server yet, which is the known gap
 for clients that cannot hold or protect any credential at all.
 
+> [!NOTE]
+> The valiss CLI is in early development and not yet released; every command is
+> currently a stub. Until it ships, issuance runs through the library `Issue*`
+> calls or the `examples/minter` tool.
+
 ## Maintenance and support
 
 valiss is a single-maintainer open-source project. There is no commercial entity

@@ -67,6 +67,13 @@ See [What is manual today](#what-is-manual-today).
 
 ## The inverted-order failure
 
+> [!WARNING]
+> Never flip verifiers to epoch N+1 before the producers have re-issued. The
+> moment a verifier trusts only N+1, every still-current epoch-N credential
+> fails at once: not one tenant, every tenant on that verifier, a fleet of 401s
+> the instant the policy changes. Registering both epochs first (step 2) is what
+> removes the hazard.
+
 The failure mode this order exists to prevent is flipping the verifiers to
 epoch N+1 alone before the producers have re-issued. The moment a verifier
 trusts only N+1, every still-current epoch-N credential fails: on a keyring

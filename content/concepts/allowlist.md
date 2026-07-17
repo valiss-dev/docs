@@ -28,7 +28,12 @@ allowlist can back several trust domains at once without practical ambiguity.
 There is a development-only `valiss.AllowAll` that accepts every id. It exists
 for local work where maintaining a list is friction you do not want yet. It
 turns off revocation entirely; the token signature and expiry still gate access,
-but nothing can be cut off early. Do not ship it.
+but nothing can be cut off early.
+
+> [!CAUTION]
+> `AllowAll` accepts every id and turns off revocation entirely, so nothing can
+> be cut off early. It is for local development only. Do not ship it to
+> production.
 
 ## Revocation is removal
 
