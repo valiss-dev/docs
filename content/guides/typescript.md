@@ -115,9 +115,9 @@ const { timestamp, signature } = await signRequest(signer, context);
 // ...also send { "valiss-nonce": nonce } in the request headers.
 ```
 
-These are the same primitives a future `valiss/fetch` adapter will wrap, so a
-transport hook you build on `signRequest` today keeps working when the adapter
-ships.
+These are the same primitives any transport adapter would wrap, so a transport
+hook you build on `signRequest` today would carry over if such an adapter is
+added later.
 
 ## Verify tokens and requests
 
