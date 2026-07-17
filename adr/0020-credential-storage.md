@@ -1,6 +1,6 @@
 # 0020. Credential storage: pluggable backends, one encrypted DuckDB file per operator
 
-- Status: accepted
+- Status: proposed (accepted 2026-07-17, reopened for further consideration the same day)
 - Date: 2026-07-17
 - Deciders: mikluko
 
