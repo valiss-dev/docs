@@ -25,6 +25,16 @@ its users no more than it holds itself, and revoking an account cuts off
 everything beneath it. That property is what lets you hand a customer one
 account credential and stop thinking about how they subdivide it.
 
+The signing chain, one operation per hop:
+
+```mermaid
+flowchart TD
+    O["Operator (O…)"] -->|"signs account token"| A["Account (A…)"]
+    A -->|"signs user token"| U["User (U…)"]
+    U -->|"signs message token"| M["Message token"]
+    O -->|"self-signs operator token"| O
+```
+
 ## Keys are nkeys
 
 Identities are encoded in the NATS nkey text format: uppercase base32 of the

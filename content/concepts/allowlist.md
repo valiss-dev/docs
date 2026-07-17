@@ -77,6 +77,16 @@ stops verifying, so every user token that descends from it stops verifying too.
 You revoke a tenant and its entire user population in one edit, without having to
 enumerate the users, and without the users' own tokens needing to have expired.
 
+One edit cascades to the whole user population:
+
+```mermaid
+flowchart TD
+    R["Remove account jti from allowlist"] -->|"next request"| AT["Account token rejected:<br/>jti not allowed"]
+    AT -->|"chain no longer verifies"| U1["User token rejected"]
+    AT -->|"chain no longer verifies"| U2["User token rejected"]
+    AT -->|"chain no longer verifies"| U3["User token rejected"]
+```
+
 This is the cryptographic counterpart to the "delegation cannot widen" property:
 an account's authority flows down to its users through the chain, so cutting the
 account cuts everything under it. It also means the allowlist stays small. You

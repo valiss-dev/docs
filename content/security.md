@@ -156,6 +156,28 @@ The verifier applies these in a fixed order and reports a precise reason:
 chain signatures, then epoch and validity windows, then the allowlist, then
 proof of possession, then extension checks, then custom validators.
 
+Each gate fails closed to a denial:
+
+```mermaid
+flowchart TD
+    S["Account token signature<br/>vs pinned operator key"] --> P["Operator policy:<br/>token window + epoch match"]
+    P --> AV["Account token<br/>expiry and not-before"]
+    AV --> AL["Allowlist:<br/>account jti present"]
+    AL --> UT["User token, if present:<br/>signature vs account key,<br/>epoch, expiry"]
+    UT --> POP["Proof of possession:<br/>request signature vs subject<br/>(bearer user token waives)"]
+    POP --> EX["Extension checks"]
+    EX --> V["Custom validators"]
+    V --> ID(["Identity"])
+    S -.->|fail| D(["Denied"])
+    P -.->|fail| D
+    AV -.->|fail| D
+    AL -.->|fail| D
+    UT -.->|fail| D
+    POP -.->|fail| D
+    EX -.->|fail| D
+    V -.->|fail| D
+```
+
 ## Revocation reach, and its limits
 
 Revocation without an issuer to call is bounded, and the boundaries matter.

@@ -76,6 +76,20 @@ when it lapses. Entries are selected by the operator named in the credential
 rather than by trial, so an unknown operator, or a known operator at an
 unregistered epoch, fails immediately.
 
+Both epochs verify while the outgoing operator token is unexpired; its `exp`
+closes the grace:
+
+```mermaid
+flowchart TD
+    subgraph KR["Keyring during grace"]
+        E3["Operator token<br/>epoch 3, short exp"]
+        E4["Operator token<br/>epoch 4"]
+    end
+    C["Credential"] -->|"epoch 3, selected by operator + epoch"| E3
+    C -->|"epoch 4, selected by operator + epoch"| E4
+    E3 -.->|"short exp lapses"| CLOSED["Only epoch 4 verifies"]
+```
+
 The same keyring also lets one verifier trust several independent operators at
 once; a handler reads the trust domain from `id.Operator`, and the keyring
 guarantees a name maps to exactly one operator key.
