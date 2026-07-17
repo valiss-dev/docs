@@ -64,6 +64,8 @@ The model, one page each.
   for artifacts that travel on their own.
 - [Creds](/docs/concepts/creds/): the credentials file, a client's tokens and
   signing seed packaged together.
+- [Custodianship](/docs/concepts/custodianship/): who holds a client's seed and
+  tokens, and the planned custodian server for clients that cannot.
 
 ### Guides
 
