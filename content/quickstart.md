@@ -157,12 +157,20 @@ Revocation is an allowlist edit, not a key operation. To cut off the tenant,
 remove its account token id:
 
 ```go
-allowlist.Set(nil) // or Set(remainingIDs) to drop just this one
+// remainingIDs is your tenant list minus this one, re-read from the allowlist
+// file you maintain today.
+allowlist.Set(remainingIDs)
+// allowlist.Set(nil) // the nuke: revokes every tenant at once
 ```
 
 The next request from that tenant, and from every user under it, fails
 verification. `StaticAllowlist` is in-memory; production servers load ids from
-a file with `valiss.LoadAllowlistFile` and reload on change.
+a file with `valiss.LoadAllowlistFile`. That call reads the file once and
+installs no watcher, so the caller drives reloads: a file watch, a SIGHUP
+handler, or a poll interval re-reads the file and applies it with `Set` on the
+retained allowlist. Validate the new set before `Set`, because an empty file
+revokes every tenant. The [Go guide](/docs/guides/go/#the-allowlist) shows the
+full pattern.
 
 ## From here to production
 
@@ -174,10 +182,12 @@ resolving seeds from the environment, and writes a creds file the client loads
 with `creds.Load`. The server side is unchanged: it still pins the operator
 public key and consults the allowlist.
 
-The valiss CLI (early development) is the issuer-side counterpart to this
-in-process minting: it keeps operator keys and tokens in an encrypted
-per-operator store and runs minting and creds export from there, so an operator
-issues credentials without writing Go.
+The valiss CLI (early development) will be the issuer-side counterpart to this
+in-process minting: keeping operator keys and tokens in an encrypted
+per-operator store and running minting and creds export from there, so an
+operator issues credentials without writing Go. Its command tree is designed
+but not yet runnable (every command is currently a stub), so today that
+issuer-side minting is the library `Issue*` calls above or `examples/minter`.
 
 ## Next steps
 

@@ -119,8 +119,10 @@ token when the server resolves it (see
 The `examples/minter` command in the repository is a complete,
 manifest-driven credential minter built on these APIs. For issuer-side
 credential management as a standalone tool rather than library code, the valiss
-CLI (early development) keeps operator keys and tokens in an encrypted
-per-operator store and runs minting and creds export from there.
+CLI (early development) will keep operator keys and tokens in an encrypted
+per-operator store and run minting and creds export from there; its commands
+are designed but every one is currently a stub, so today issuance is the
+`Issue*` calls above or `examples/minter`.
 
 ## Server-side verification
 
@@ -159,6 +161,68 @@ These three are bundled implementations. `Allowlist` is a one-method
 interface, so a custom implementation can source the accepted ids from a
 database or a per-request policy; see [Allowlist](../concepts/allowlist.md)
 for the contract.
+
+#### Reloading without a restart
+
+`LoadAllowlistFile` reads the file once and returns a fresh allowlist; it
+installs no watcher and handles no signal, so nothing reloads on its own. Live
+revocation is the caller's job: retain the allowlist, re-read the file when you
+decide to, and swap the set with `Set`. Validate the new set first, because an
+empty file (or one parsed down to nothing) revokes every tenant.
+
+```go
+// LoadAllowlistFile reads the file once and returns a fresh allowlist; it
+// installs no watcher. For live revocation, retain the allowlist, re-read the
+// file yourself, and swap the set with Set.
+allowlist, err := valiss.LoadAllowlistFile("/etc/valiss/allowlist")
+verifier := valiss.NewVerifier(operatorPub, allowlist)
+
+// Reload on SIGHUP. Set replaces the whole set under a lock, so a concurrent
+// request sees either the old set or the new one, never a partial one.
+func reloadOnHUP(path string, allowlist *valiss.StaticAllowlist) {
+	sig := make(chan os.Signal, 1)
+	signal.Notify(sig, syscall.SIGHUP)
+	for range sig {
+		ids, err := readAllowlistIDs(path)
+		if err != nil {
+			log.Printf("allowlist reload failed, keeping current set: %v", err)
+			continue
+		}
+		// An empty list revokes every tenant. Validate before Set so a
+		// truncated or empty file cannot fail-close the deployment.
+		if len(ids) == 0 {
+			log.Printf("allowlist reload skipped: %s parsed to zero ids", path)
+			continue
+		}
+		allowlist.Set(ids)
+	}
+}
+
+// readAllowlistIDs mirrors LoadAllowlistFile's parsing: one jti per line,
+// blank lines and '#' comments ignored.
+func readAllowlistIDs(path string) ([]string, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+	var ids []string
+	s := bufio.NewScanner(f)
+	for s.Scan() {
+		line := strings.TrimSpace(s.Text())
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		ids = append(ids, line)
+	}
+	return ids, s.Err()
+}
+```
+
+The trigger is yours to pick: the SIGHUP handler above, a file watcher
+(`fsnotify`), or a poll interval that calls `Set` only when the file's contents
+change. Whichever it is, the fail-closed check before `Set` is what keeps a
+truncated or empty file from cutting off the whole deployment.
 
 ### Verifier options
 

@@ -33,11 +33,12 @@ The issuer is the one custodian valiss treats as special, and the rule there is
 firm: the operator seed never touches production. It lives with the issuer and
 comes out only to sign new credentials (see the [security model](../security.md)
 on operator-seed custody). The **valiss CLI** (early development) is the
-issuer-side tool for exactly this custody: an operator's keys and tokens live in
-its encrypted per-operator store, and minting and [creds export](creds.md) run
-from there. Keeping the store that holds the seeds distinct from the services
-that only ever consume the creds it exports is the out-of-process separation
-that makes proper custody possible with today's parts. The Go library exposes the
+designed home for exactly this custody: an operator's keys and tokens are meant
+to live in its encrypted per-operator store, with minting and
+[creds export](creds.md) running from there. That store is not built yet, its
+commands are stubs today, so keeping the seeds apart from the services that only
+consume the creds is a separation you arrange now out of the parts valiss ships,
+with a secrets manager holding the seeds. The Go library exposes the
 same minting primitives directly for programmatic issuance, and `valiss-go`'s
 `examples/minter` is a minimal illustration of driving them out of process,
 resolving seeds from the environment rather than holding them.

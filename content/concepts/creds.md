@@ -12,8 +12,11 @@ server keeps only public keys and an allowlist, the client keeps its creds.
 The `valiss.dev/valiss/creds` package renders and parses this file. `Format`
 turns a `Creds` value into the file text, `Parse` reads the text back, and
 `Load` reads and parses a path in one call. On the issuer side, the valiss CLI
-(early development) writes these files directly with `creds export`, so an
-operator distributes credentials without coding against the package.
+(early development) is designed to write these files directly with `creds
+export`, so an operator distributes credentials without coding against the
+package. That command is not yet runnable (a stub today); until it lands, an
+operator produces creds files with the `creds` package or `examples/minter`,
+which writes a creds file straight from a manifest.
 
 ## The marker-delimited layout
 

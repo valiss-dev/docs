@@ -1,6 +1,6 @@
 ---
 title: Reference
-weight: 4
+weight: 10
 ---
 
 The [Concepts](/docs/concepts/) and [Guides](/docs/guides/) explain the model
@@ -78,9 +78,10 @@ All under the [valiss-dev](https://github.com/valiss-dev) GitHub organization:
   mint, sign, verify, plus the Django and ASGI integrations.
 - [valiss-ts](https://github.com/valiss-dev/valiss-ts) - the
   TypeScript/JavaScript port of the core wire layer.
-- [valiss-cli](https://github.com/valiss-dev/valiss-cli) - the issuer-side CLI
-  (`valiss`) for keys, tokens, creds, and allowlist management; early
-  development, not yet released.
+- [valiss-cli](https://github.com/valiss-dev/valiss-cli) - the planned
+  issuer-side CLI (`valiss`) for keys, tokens, creds, and allowlist management;
+  early development, its command tree is designed but every command is currently
+  a stub, not yet released.
 - [spec](https://github.com/valiss-dev/spec) - SPEC-1 and the conformance
   vectors.
 - [docs](https://github.com/valiss-dev/docs) - the source of this documentation
