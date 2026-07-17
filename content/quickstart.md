@@ -1,6 +1,7 @@
 ---
 title: Quickstart
 weight: 1
+description: "The shortest working path in Go: create an operator, account, and user, issue a token, and verify it server-side against the allowlist."
 ---
 
 This walks the shortest working path with the Go library as it ships today:

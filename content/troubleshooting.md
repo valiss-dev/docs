@@ -1,6 +1,7 @@
 ---
 title: Troubleshooting
 weight: 7
+description: "Every verification rejection mapped from the symptom you see back to the cause the verifier decided, and what to check."
 ---
 
 valiss verification fails closed, and every rejection has one specific cause.

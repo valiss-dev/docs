@@ -1,6 +1,7 @@
 ---
 title: Security model
 weight: 5
+description: "What the offline model protects and where the protection ends: the pinned trust anchor, proof of possession, and the limits you own."
 ---
 
 valiss verifies credentials offline against a single pinned public key. That is
