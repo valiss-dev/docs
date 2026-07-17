@@ -1,10 +1,9 @@
 ---
 title: valiss
-# The docs landing content lives in introduction.md; this section root only
-# survives to anchor the sidebar tree and redirects to it (layout supplied by
-# the website: /docs/ -> /docs/introduction/). Kept out of search and llms.
-layout: redirect
-outputs: ["html"]
-excludeSearch: true
-llms: false
 ---
+
+valiss is decentralized tenant authentication for services, built on a
+three-level chain of Ed25519 keys: operator, account, user. Verification is
+offline against a single pinned public key, so there is no auth service to run,
+no token introspection endpoint to call, and issuing credentials never touches
+production.
