@@ -1,6 +1,6 @@
 ---
 title: Rotation
-weight: 5
+weight: 4
 ---
 
 The [allowlist](allowlist.md) revokes one tenant at a time. Sometimes you need
@@ -104,3 +104,8 @@ flowchart TD
 The same keyring also lets one verifier trust several independent operators at
 once; a handler reads the trust domain from `id.Operator`, and the keyring
 guarantees a name maps to exactly one operator key.
+
+## Related
+
+- [Extensions](extensions.md): the typed, signed authorization claims the
+  transports enforce down the chain.

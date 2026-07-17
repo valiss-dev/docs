@@ -243,7 +243,7 @@ with that two-minute grace in mind.
   carry the role that position demands, and the signature chain must hold. A user
   key offered in an account slot is rejected there, not made unrepresentable.
 
-## Where to go next
+## Related
 
 - [Allowlist](/docs/concepts/allowlist/): revocation semantics in depth.
 - [Rotation](/docs/concepts/rotation/): epochs and the keyring for domain-wide

@@ -1,6 +1,6 @@
 ---
 title: Extensions
-weight: 4
+weight: 5
 ---
 
 Authentication tells you *who* is calling. Authorization tells you *what* they
@@ -86,3 +86,8 @@ AND across the chain), so the effective grant is the intersection. A user token
 that claims more than its account is simply capped at the account's bounds when
 verified, and a tenant handed a capped account credential cannot exceed that cap
 no matter what it mints.
+
+## Related
+
+- [Messages](messages.md): the optional per-message proof of origin a user key
+  mints, carried by the same signed-claim machinery.

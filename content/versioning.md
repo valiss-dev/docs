@@ -146,7 +146,7 @@ candidate first and patch releases are exempt.
 
 valiss-go targets **Go 1.26 or newer**, as its `go.mod` declares.
 
-## Where to go next
+## Related
 
 - [Tokens](/docs/concepts/tokens/): the wire shape the version discriminator
   lives in, and why valiss tokens are deliberately not stock JWTs.

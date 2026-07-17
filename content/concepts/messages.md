@@ -119,3 +119,8 @@ bare token per message and the retransmit happens once per emitter rather than
 once per message. `valiss.ErrNoChain` is the one verification failure a
 retransmit can cure, which is what lets the transports drive this automatically.
 The [Go guide](../guides/go.md#message-tokens) shows how to turn negotiation on.
+
+## Related
+
+- [Creds](creds.md): the token-and-seed file a client holds to sign the requests
+  and messages it emits.

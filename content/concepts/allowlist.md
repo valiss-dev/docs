@@ -100,3 +100,8 @@ invalidating every token everywhere), the allowlist is the wrong tool; that is
 what epoch [rotation](rotation.md) is for. The two levers are complementary:
 the allowlist for selective, per-tenant revocation, epochs for domain-wide
 rotation.
+
+## Related
+
+- [Rotation](rotation.md): the complementary lever, invalidating a whole trust
+  domain at once instead of one tenant at a time.

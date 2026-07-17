@@ -119,3 +119,8 @@ deliberate exception: they carry no seed, so they cannot sign, and in exchange a
 bearer token is replayable by whoever holds it until it expires. That trade is
 only safe under TLS and a short validity window. The rest of the time, the seed
 in the creds file is the thing to guard.
+
+## Related
+
+- [Custody](custody.md): who holds the seed inside a creds file, and the gap
+  valiss has there today.

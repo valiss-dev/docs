@@ -42,7 +42,15 @@ custodian server yet. And if a
 conventional session or OAuth stack already serves a single-tenant app, valiss
 buys you little.
 
-The sections below map the rest: the [concepts](/docs/concepts/) one page at a
-time, the language [guides](/docs/guides/) for wiring valiss into real code,
-and the [reference](/docs/reference/) material for the exact rules and
-guarantees.
+Start with the [quickstart](/docs/quickstart/) for the shortest working path.
+The rest builds in reading order: the [concepts](/docs/concepts/) one page at a
+time, the language [guides](/docs/guides/) for wiring valiss into real code, and
+[operations](/docs/operations/) for running it in production. The
+[security model](/docs/security/) sets out the threat model and its limits,
+[versioning](/docs/versioning/) the wire and library compatibility rules, and
+[troubleshooting](/docs/troubleshooting/) maps each rejection back to its cause.
+[Project status](/docs/project/) records where valiss stands and how to report a
+security issue, the [comparison](/docs/comparison/) places it against other auth
+models, and the [reference](/docs/reference/) points to the authoritative
+material underneath: the Go API, the wire specification, and the conformance
+vectors.

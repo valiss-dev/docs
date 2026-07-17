@@ -96,3 +96,8 @@ middleware can walk a multi-level chain, enforce epochs, or check payload
 checksums anyway. The signature check is the only layer such a library could
 have reused. The library is the canonical verifier; other languages port the
 verification algorithm rather than reuse a JWT stack.
+
+## Related
+
+- [Allowlist](allowlist.md): how issued account tokens are revoked before they
+  expire, keyed by the content-hash `jti` derived here.

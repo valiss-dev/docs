@@ -82,3 +82,8 @@ entities side by side. If you segment tenant data by account name, it is on you
 to keep those names distinct within your operator. Across different operators,
 names may collide freely: two independent producers can each have a tenant
 called `acme`, and you distinguish them by operator, not by name alone.
+
+## Related
+
+- [Tokens](tokens.md): the signed artifacts that bind these keys into a
+  delegation chain, each signed by the key one level up.
