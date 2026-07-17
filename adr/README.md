@@ -26,6 +26,7 @@ format. Governed by pull request (see [0005](0005-adr-process.md)).
 | [0016](0016-vanity-module-roots.md) | One explicit vanity page per Go module root | accepted |
 | [0017](0017-cli-tool.md) | The valiss CLI: name, repository, module path | accepted |
 | [0018](0018-website-theme.md) | The website uses the Hextra theme, whole-site | accepted |
+| [0019](0019-command-framework.md) | Command framework: the spf13 suite for CLI tools, stdlib flags for servers | accepted |
 
 New ADR: copy [0000-template.md](0000-template.md) to the next number, open a PR
 with `status: proposed`, flip to `accepted` before merge.
