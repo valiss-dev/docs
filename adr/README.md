@@ -31,6 +31,7 @@ format. Governed by pull request (see [0005](0005-adr-process.md)).
 | [0021](0021-cli-command-surface.md)              | The valiss CLI command surface                                                 | accepted                                                   |
 | [0022](0022-entity-generation-floor.md)          | Entity generation floor: wire-level reflection of store generations            | accepted                                                   |
 | [0023](0023-formatting.md)                       | Formatting is enforced: canonical formatters for code, dprint for Markdown     | accepted                                                   |
+| [0024](0024-homebrew-tap.md)                     | Distributing the valiss CLI through an in-house Homebrew tap                   | accepted                                                   |
 
 New ADR: copy [0000-template.md](0000-template.md) to the next number, open a PR
 with `status: proposed`, flip to `accepted` before merge.
